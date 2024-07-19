@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('publisher_id')->nullable();
             $table->integer('published_year')->nullable();
             $table->bigInteger('category_id')->nullable();
+            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }

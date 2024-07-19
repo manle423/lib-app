@@ -17,3 +17,12 @@ Publishers
 Categories
 	CategoryID (Primary Key)
 	CategoryName
+
+Loans
+	LoanID (Primary Key)
+	BookID 
+	UserID
+	LoanDate
+	DueDate
+	ReturnDate
+
