@@ -1,0 +1,19 @@
+Books
+	BookID (Primary Key)
+	Title
+	Author
+	ISBN - Varchar
+	PublisherID (Foreign Key to Publishers)
+	PublishedYear
+	CategoryID (Foreign Key to Categories)
+
+Publishers
+	PublisherID (Primary Key)
+	Name
+	Address
+	Phone
+	Email
+
+Categories
+	CategoryID (Primary Key)
+	CategoryName
