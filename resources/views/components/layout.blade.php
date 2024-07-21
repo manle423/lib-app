@@ -12,33 +12,36 @@
 
 <body>
     <header>
-        <nav>
-            <a href="{{ route('home') }}">Home</a>
-            @auth
-                <div x-data="{ open: false }">
-                    {{-- Dropdown menu button --}}
-                    <button @click="open = !open" type="button">
-                        <img src="https:picsum.photos/200" alt="">
-                    </button>
-                    {{-- Dropdown menu --}}
-                    <div x-show="open" @click.outside="open=false">
-                        <p>{{ auth()->user()->name }}</p>
-                        <a href="{{ route('dashboard') }}">Dashboard</a>
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button type="submit">Logout</button>
-                        </form>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ route('publishers.index') }}">Home</a>
+                @auth
+                    <div class="dropdown" x-data="{ open: false }">
+                        {{-- Dropdown menu button --}}
+                        <button @click="open = !open" class="btn btn-secondary dropdown-toggle btn-circle btn-xl" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="https:picsum.photos/200" alt="">
+                        </button>
+                        {{-- Dropdown menu --}}
+                        <div x-show="open" @click.outside="open=false">
+                            <p>{{ auth()->user()->name }}</p>
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="dropdown-item" type="submit">Logout</button>
+                            </form>
+                        </div>
                     </div>
+                @endauth
 
-                </div>
-            @endauth
+                @guest
+                    <div>
+                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('register') }}">Register</a>
+                    </div>
+                @endguest
 
-            @guest
-                <div>
-                    <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
-                </div>
-            @endguest
+            </div>
         </nav>
     </header>
 

@@ -1,3 +1,3 @@
 import './bootstrap';
 
-import * as _bootstrap from 'bootstrap';
+import * as bootstrap from 'bootstrap';
