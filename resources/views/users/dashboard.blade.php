@@ -7,7 +7,7 @@
         {{-- Session message --}}
         @if (session('success'))
             <x-flash-msg :msg="session('success')" type="success" />
-        {{-- @elseif (session('error'))
+            {{-- @elseif (session('error'))
             <x-flash-msg :msg="session('error')" type="danger" /> --}}
         @endif
 
