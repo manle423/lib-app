@@ -13,7 +13,7 @@ class PublisherController extends Controller
     public function index()
     {
         // Get All the publisher latest 
-        $publishers = Publisher::latest()->paginate(9);
+        $publishers = Publisher::latest()->paginate(6);
         // dd($publishers);
 
         return view('publishers.index', ['publishers' => $publishers]);
