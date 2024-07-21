@@ -16,11 +16,11 @@ Route::resource('publishers', PublisherController::class);
 Route::prefix('admin')->group(function () {
     Route::prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name("admin.category.index"); // Matches "/category/"
-        Route::get('/create', [CategoryController::class, 'create'])->name("admin.category.create"); // Matches "/category/create"
+        Route::get('/create', [CategoryController::class, 'create'])->middleware('auth')->name("admin.category.create"); // Matches "/category/create"
         Route::post('/add', [CategoryController::class, 'store'])->name("admin.category.store"); // Matches "/category/add"
-        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name("admin.category.edit"); // Matches "/category/edit"
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->middleware('auth')->name("admin.category.edit"); // Matches "/category/edit"
         Route::post('/update/{id}', [CategoryController::class, 'update'])->name("admin.category.update"); // Matches "/category/update"
-        Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name("admin.category.delete"); // Matches "/category/delete"
+        Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->middleware('auth')->name("admin.category.delete"); // Matches "/category/delete"
 
     });
 });
