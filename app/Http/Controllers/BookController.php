@@ -78,7 +78,7 @@ class BookController extends Controller
             'quantity' => 50
         ]);
 
-        return redirect()->route('admin.book.index')->with('success', 'Book added successfully.');
+        return redirect()->route('admin.books.index')->with('success', 'Book added successfully.');
     }
 
     /**

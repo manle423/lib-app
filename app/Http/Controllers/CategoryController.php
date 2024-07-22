@@ -77,7 +77,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         if (!$category) {
-            return redirect()->route('admin.category.index')
+            return redirect()->route('admin.categories.index')
                 ->with('error', 'Category not found.');
         }
         // if ($category->products()->count() > 0) {
@@ -88,7 +88,7 @@ class CategoryController extends Controller
         //
 
         $category->delete();
-        return redirect()->route('admin.category.index')
+        return redirect()->route('admin.categories.index')
             ->with('success', 'Delete successfully!.');
     }
 }

@@ -26,9 +26,9 @@
                             <li class="active"><a class="navbar-brand" href="{{ route('home') }}">Home</a>
                             </li>
                             <li><a class="navbar-brand" href="{{ route('admin.authors.index') }}">Author</a></li>
-                            <li><a class="navbar-brand" href="{{ route('admin.book.index') }}">Book</a></li>
+                            <li><a class="navbar-brand" href="{{ route('admin.books.index') }}">Book</a></li>
                             <li><a class="navbar-brand" href="{{ route('admin.publishers.index') }}">Publisher</a></li>
-                            <li><a class="navbar-brand" href="{{ route('admin.category.index') }}">Category</a></li>
+                            <li><a class="navbar-brand" href="{{ route('admin.categories.index') }}">Category</a></li>
 
                         </ul>
                     </div>
@@ -45,7 +45,7 @@
                         <div x-show="open" @click.outside="open=false">
                             <p>{{ auth()->user()->name }}</p>
                             <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                            <a class="dropdown-item" href="{{ route('admin.category.index') }}">Category</a>
+                            <a class="dropdown-item" href="{{ route('admin.categories.index') }}">Category</a>
 
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf

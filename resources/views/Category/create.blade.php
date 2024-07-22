@@ -12,7 +12,7 @@
         @endif
         <div class="row">
             <div class="col-md-6">
-                <form action="{{ route('admin.category.store') }}" method="post">
+                <form action="{{ route('admin.categories.store') }}" method="post">
                     @csrf
 
                     {{-- Name of the publisher --}}
