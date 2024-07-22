@@ -13,7 +13,7 @@ class PublisherController extends Controller
     public function index()
     {
         // Get All the publisher latest 
-        $publishers = Publisher::latest()->paginate(9);
+        $publishers = Publisher::latest()->paginate(6);
         // dd($publishers);
 
         return view('publishers.index', ['publishers' => $publishers]);
@@ -24,7 +24,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('publishers.create');
     }
 
     /**
@@ -35,15 +35,15 @@ class PublisherController extends Controller
         // Validate
         $fields = $request->validate([
             'name' => ['required', 'max:255'],
-            'address' => ['nullable','max:255'],
-            'phone' => ['nullable','max:255'],
+            'address' => ['nullable', 'max:255'],
+            'phone' => ['nullable', 'max:255'],
             'email' => ['nullable', 'max:255', 'email', 'unique:publishers'],
         ]);
         // dd($fields);
         // dd(Publisher::create($fields));
         // Create
         Publisher::create($fields);
-        
+
         // dd('ok');
 
         // Redirect
@@ -62,8 +62,13 @@ class PublisherController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        //
+    { {
+            // Find the publisher by ID
+            $publisher = Publisher::findOrFail($id);
+
+            // Return the edit view with the publisher data
+            return view('publishers.edit', compact('publisher'));
+        }
     }
 
     /**
@@ -71,7 +76,22 @@ class PublisherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Find the publisher by ID
+        $publisher = Publisher::findOrFail($id);
+
+        // Validate the request data
+        $fields = $request->validate([
+            'name' => ['nullable', 'max:255'],
+            'address' => ['nullable', 'max:255'],
+            'phone' => ['nullable', 'max:255'],
+            'email' => ['nullable', 'max:255', 'email', 'unique:publishers,email,' . $id],
+        ]);
+
+        // Update the publisher's details
+        $publisher->update($fields);
+
+        // Redirect back with a success message
+        return redirect()->route('admin.publishers.index')->with('success', 'Publisher updated successfully');
     }
 
     /**
@@ -79,6 +99,13 @@ class PublisherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Find the publisher by ID
+        $publisher = Publisher::findOrFail($id);
+
+        // Delete the publisher
+        $publisher->delete();
+
+        // Redirect back with a success message
+        return back()->with('success', 'Publisher deleted successfully');
     }
 }

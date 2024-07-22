@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('author')->nullable();
             $table->string('ISBN')->nullable();
-            $table->bigInteger('publisher_id')->nullable();
+            $table->unsignedBigInteger('publisher_id')->nullable();
             $table->integer('published_year')->nullable();
-            $table->bigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->integer('quantity')->nullable();
             $table->timestamps();
         });

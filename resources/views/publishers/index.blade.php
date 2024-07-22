@@ -2,21 +2,20 @@
     <div class="container my-5">
         <h1 class="text-center mb-4">All Publishers</h1>
 
+        {{-- Session message --}}
+        @if (session('success'))
+            <x-flash-msg :msg="session('success')" type="success" />
+            {{-- @elseif (session('error'))
+            <x-flash-msg :msg="session('error')" type="danger" /> --}}
+        @endif
+
+        <a href="{{ route('admin.publishers.create') }}" class="btn btn-primary mb-3">Add Publisher</a>
         <div class="row">
             {{-- the $publishers is declared at PublisherController  --}}
             @foreach ($publishers as $item)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ $item->name }}</h2>
-                            <p class="card-text"><strong>Updated At:</strong> {{ $item->updated_at->diffForHumans() }}</p>
-                            <p class="card-text"><strong>Address:</strong> {{ $item->address }}</p>
-                            <p class="card-text"><strong>Phone:</strong> {{ $item->phone }}</p>
-                            <p class="card-text"><strong>Email:</strong> {{ $item->email }}</p>
-                        </div>
-                    </div>
-                </div>
+                <x-publisherCard :item="$item" />
             @endforeach
+
         </div>
 
         <div class="d-flex justify-content-center">
@@ -24,6 +23,7 @@
         </div>
     </div>
 </x-layout>
+
 
 {{-- @auth
         <h1>Logged in</h1>
