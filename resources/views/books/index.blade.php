@@ -3,20 +3,48 @@
         <h1 class="text-center mb-4">All Books</h1>
         <a href="{{ route('admin.book.create') }}" class="btn btn-primary mb-3">Add books</a>
         <div class="row">
-            {{-- @foreach ($books as $item) --}}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">aaaa</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the
-                                bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                {{-- @endforeach --}}
+
+            <div class="container mt-3">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>ISBN</th>
+                            <th>Image</th>
+                            <th>Publisher</th>
+                            <th>Year</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($books as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->title }}</td>
+                                <td>{{ $item->ISBN }}</td>
+                                <td> <img src="{{ asset($item->image) }}" alt="" height="70px" width="70px" />
+                                </td>
+                                <td>{{ $item->publisher_id }}</td>
+                                <td>{{ $item->published_year }}</td>
+                                <td>{{ $item->category_id }}</td>
+                                <td>{{ $item->quantity }}</td>
+                                <td><a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('admin.book.delete', $item->id) }}"
+                                        class="btn btn-danger">Delete</a>
+                                </td>
+
+
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
             </div>
 
             <div class="d-flex justify-content-center">

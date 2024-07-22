@@ -24,31 +24,27 @@
                             <p class="error">{{ $message }}</p>
                         @enderror
                         <label for="name">Author Name</label>
-                        <input type="text" class="form-control" id="authorname" name="authorname"
+                        <input type="text" class="form-control" id="authorname" name="author_id"
                             placeholder="Enter author's name" requried>
                         <label for="name">ISBN</label>
                         <input type="text" class="form-control" id="ISBN" name="ISBN"
                             placeholder="Enter category's name" requried>
                         <label for="name">Image</label>
-                        <input type="file" class="form-control" id="image" name="image"
-                            placeholder="Enter category's name" requried>
+                        <input type="file" class="form-control" id="image" name="image">
                         <label for="name">Publisher</label>
-                        <input type="text" class="form-control" id="publishername" name="publishername"
+                        <input type="text" class="form-control" id="publishername" name="publisher_id"
                             placeholder="Enter publisher's name" requried>
                         <label for="name">Published year</label>
                         <input type="text" class="form-control" id="published_year" name="published_year"
                             placeholder="Enter published's name" requried>
                         <label for="name">Category</label>
-                        <input type="text" class="form-control" id="cateory" name="category"
+                        <input type="text" class="form-control" id="cateory" name="category_id"
                             placeholder="Enter category's name" requried>
                         <label for="name">Quantity</label>
                         <input type="text" class="form-control" id="quantity" name="quantity"
                             placeholder="Enter category's name" requried>
 
                     </div>
-
-
-
                     {{-- Submit button --}}
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>

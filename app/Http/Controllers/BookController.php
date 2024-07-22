@@ -35,17 +35,50 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'title' => 'required|max:255|string|unique:books',
-            'author_id' => 'required',
-            'ISBN' => 'required|max:255|string',
-            'image' => 'max:255|string|mimes:png,jpg,jpeg',
-            'publisher_id' => 'required',
-            'published_year' => 'nullable|date',
-            'category_id' => 'required'
+        // Validate the incoming request data
+        // $request->validate([
+        //     'title' => 'required|max:255|string|unique:books',
+        //     'author_id' => 'required|exists:authors,id',
+        //     'ISBN' => 'required|max:255|string',
+        //     'image' => 'nullable|mimes:png,jpg,jpeg|max:2048', // Updated validation for image
+        //     'publisher_id' => 'required|exists:publishers,id',
+        //     'published_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+        //     'category_id' => 'required|exists:categories,id'
+        // ]);
 
+        // Handle the file upload
+        $filename = null;
+        $path = 'uploads/books/';
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path($path), $filename);
+        }
+
+        // Test dd
+        // dd([
+        //     'title' => $request->title,
+        //     'author_id' => $request->author_id,
+        //     'ISBN' => $request->ISBN,
+        //     'image' => $filename ? $path . $filename : null,
+        //     'publisher_id' => $request->publisher_id,
+        //     'published_year' => $request->published_year,
+        //     'category_id' => $request->category_id,
+        // ]);
+
+        // Create the book
+        Book::create([
+            'title' => $request->title,
+            'author_id' => $request->author_id,
+            'ISBN' => $request->ISBN,
+            'image' => $filename ? $path . $filename : null, // Store the path to the image or null if no image was uploaded
+            'publisher_id' => $request->publisher_id,
+            'published_year' => $request->published_year,
+            'category_id' => $request->category_id,
+            'quantity' => 50
         ]);
+
+        return redirect()->route('admin.book.index')->with('success', 'Book added successfully.');
     }
 
     /**

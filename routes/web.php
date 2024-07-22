@@ -27,22 +27,22 @@ Route::prefix('admin')->group(function () {
 
     // Route for managing all about Books
     Route::prefix('books')->group(function () {
-        Route::get('/', [BookController::class, 'index'])->name("admin.book.index"); // Matches "/book/"
-        Route::get('/create', [BookController::class, 'create'])->name("admin.book.create"); // Matches "/book/create"
-        Route::post('/add', [BookController::class, 'store'])->name("admin.book.store"); // Matches "/book/add"
+        Route::get('/', [BookController::class, 'index'])->name("admin.book.index"); // Matches "/books/"
+        Route::get('/create', [BookController::class, 'create'])->name("admin.book.create"); // Matches "/books/create"
+        Route::post('/add', [BookController::class, 'store'])->name("admin.book.store"); // Matches "/books/add"
         Route::get('/edit/{id}', [BookController::class, 'edit'])->name("admin.book.edit"); // Matches "/book/edit"
-        Route::post('/update/{id}', [BookController::class, 'update'])->name("admin.book.update"); // Matches "/book/update"
-        Route::get('/delete/{id}', [BookController::class, 'destroy'])->name("admin.book.delete"); // Matches "/category/delete"
+        Route::post('/update/{id}', [BookController::class, 'update'])->name("admin.book.update"); // Matches "/books/update"
+        Route::get('/delete/{id}', [BookController::class, 'destroy'])->name("admin.book.delete"); // Matches "/books/delete"
     });
 
     // Route for managing all about Categories
-    Route::prefix('category')->group(function () {
+    Route::prefix('categories')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name("admin.category.index"); // Matches "/category/"
         Route::get('/create', [CategoryController::class, 'create'])->name("admin.category.create"); // Matches "/category/create"
         Route::post('/add', [CategoryController::class, 'store'])->name("admin.category.store"); // Matches "/category/add"
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name("admin.category.edit"); // Matches "/category/edit"
         Route::post('/update/{id}', [CategoryController::class, 'update'])->name("admin.category.update"); // Matches "/category/update"
-        Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name("admin.category.delete"); // Matches "/category/delete"
+        Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name("admin.category.delete"); // Matches "/categories/delete"
     })->middleware('auth');
 
 
