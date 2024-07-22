@@ -17,7 +17,7 @@ class PublisherController extends Controller
 
         // dd($publishers);
 
-        return view('publishers.index', ['publishers' => $publishers]);
+        return view('publishers.index', compact('publishers'));
     }
 
     /**
