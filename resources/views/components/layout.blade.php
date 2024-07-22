@@ -26,6 +26,7 @@
                             <li class="active"><a class="navbar-brand" href="{{ route('home') }}">Home</a>
                             </li>
                             <li><a class="navbar-brand" href="{{ route('admin.publishers.index') }}">Publisher</a></li>
+                            <li><a class="navbar-brand" href="{{ route('admin.authors.index') }}">Author</a></li>
                             <li><a class="navbar-brand" href="{{ route('admin.category.index') }}">Category</a></li>
 
                         </ul>

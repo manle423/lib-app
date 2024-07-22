@@ -16,7 +16,7 @@ class PublisherController extends Controller
         $publishers = Publisher::latest()->paginate(6);
         // dd($publishers);
 
-        return view('publishers.index', ['publishers' => $publishers]);
+        return view('publishers.index', compact('publishers'));
     }
 
     /**
