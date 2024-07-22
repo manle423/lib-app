@@ -13,7 +13,7 @@
         <div class="row">
             {{-- the $publishers is declared at PublisherController  --}}
             @foreach ($publishers as $item)
-                <x-publisherCard :item="$item" />
+                <x-cards.publisher :item="$item" />
             @endforeach
 
         </div>

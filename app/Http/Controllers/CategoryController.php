@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Book;
+
 use Illuminate\Http\Request;
 
 
@@ -15,7 +17,7 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::latest()->paginate(6);
-        return view('Category.index', compact('categories'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('Category.create');
+        return view('categories.create');
     }
 
     /**
@@ -55,7 +57,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::findOrFail($id);
-        return view('Category.edit', compact('category'));
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -80,12 +82,10 @@ class CategoryController extends Controller
             return redirect()->route('admin.categories.index')
                 ->with('error', 'Category not found.');
         }
-        // if ($category->products()->count() > 0) {
-        //     Nếu có sản phẩm liên quan, không cho phép xóa
-        //     return redirect()->route('category.index')
-        //         ->with('error', 'Cannot delete category with products.');
-        // }
-        //
+        if ($category->books()->count() > 0) {
+            return redirect()->route('admin.categories.index')
+                ->with('error', 'Category cannot be deleted because it has associated books.');
+        }
 
         $category->delete();
         return redirect()->route('admin.categories.index')

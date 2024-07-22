@@ -29,7 +29,7 @@
         <div class="row">
             {{-- the $authors is declared at AuthorController  --}}
             @foreach ($authors as $item)
-                <x-authorCard :item="$item" />
+                <x-cards.author :item="$item" />
             @endforeach
 
         </div>

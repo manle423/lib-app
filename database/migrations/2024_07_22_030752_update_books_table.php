@@ -16,6 +16,7 @@ return new class extends Migration
             //
             $table->renameColumn('author', 'author_id');
             $table->unsignedBigInteger('author_id')->change();
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
         });
     }
 
@@ -25,9 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::table('posts', function (Blueprint $table) {
-            $table->renameColumn('author_id', 'author');
+        Schema::table('books', function (Blueprint $table) {
+            // $table->dropForeign('author_id');
             $table->string('author_id')->change();
+            $table->renameColumn('author_id', 'author');
         });
     }
 };

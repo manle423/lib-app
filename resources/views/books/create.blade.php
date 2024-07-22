@@ -23,26 +23,44 @@
                         @error('title')
                             <p class="error">{{ $message }}</p>
                         @enderror
-                        <label for="name">Author Name</label>
-                        <input type="text" class="form-control" id="authorname" name="author_id"
-                            placeholder="Enter author's name" requried>
+                        <div>
+                            <label for="author_id">Author:</label>
+                            <select id="author_id" name="author_id" class="form-control">
+                                <option value="">Select an author</option>
+                                @foreach ($authors as $author)
+                                    <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <label for="name">ISBN</label>
                         <input type="text" class="form-control" id="ISBN" name="ISBN"
                             placeholder="Enter category's name" requried>
                         <label for="name">Image</label>
                         <input type="file" class="form-control" id="image" name="image">
-                        <label for="name">Publisher</label>
-                        <input type="text" class="form-control" id="publishername" name="publisher_id"
-                            placeholder="Enter publisher's name" requried>
+                        <div>
+                            <label for="publisher_id">Publisher</label>
+                            <select id="publisherr_id" name="publisher_id" class="form-control">
+                                <option value="">Select a publisher</option>
+                                @foreach ($publisher as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <label for="name">Published year</label>
                         <input type="text" class="form-control" id="published_year" name="published_year"
                             placeholder="Enter published's name" requried>
-                        <label for="name">Category</label>
-                        <input type="text" class="form-control" id="cateory" name="category_id"
-                            placeholder="Enter category's name" requried>
-                        <label for="name">Quantity</label>
-                        <input type="text" class="form-control" id="quantity" name="quantity"
-                            placeholder="Enter category's name" requried>
+                        <div>
+                            <label for="category_id">Category</label>
+                            <select id="category_id" name="category_id" class="form-control">
+                                <option value="">Select a Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+
 
                     </div>
                     {{-- Submit button --}}

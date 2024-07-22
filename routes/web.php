@@ -30,17 +30,17 @@ require __DIR__.'/auth.php';
 Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
 
 // Route for admin
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
     // Route for managing all about authors
     Route::prefix('authors')->group(function () {
         Route::get('/', [AuthorController::class, 'index'])->name("admin.authors.index"); // Matches "/authors/"
-        Route::get('/create', [AuthorController::class, 'create'])->middleware('auth')->name("admin.authors.create"); // Matches "/authors/create"
+        Route::get('/create', [AuthorController::class, 'create'])->name("admin.authors.create"); // Matches "/authors/create"
         Route::post('/store', [AuthorController::class, 'store'])->name("admin.authors.store"); // Matches "/authors/add"
-        Route::get('/edit/{id}', [AuthorController::class, 'edit'])->middleware('auth')->name("admin.authors.edit"); // Matches "/authors/edit"
+        Route::get('/edit/{id}', [AuthorController::class, 'edit'])->name("admin.authors.edit"); // Matches "/authors/edit"
         Route::post('/update/{id}', [AuthorController::class, 'update'])->name("admin.authors.update"); // Matches "/authors/update"
-        Route::delete('/delete/{id}', [AuthorController::class, 'destroy'])->middleware('auth')->name("admin.authors.destroy"); // Matches "/authors/delete"
-    })->middleware('auth');
+        Route::delete('/delete/{id}', [AuthorController::class, 'destroy'])->name("admin.authors.destroy"); // Matches "/authors/delete"
+    });
 
     // Route for managing all about Books
     Route::prefix('books')->group(function () {
@@ -60,17 +60,19 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name("admin.categories.edit"); // Matches "/categories/edit"
         Route::post('/update/{id}', [CategoryController::class, 'update'])->name("admin.categories.update"); // Matches "/categories/update"
         Route::get('/delete/{id}', [CategoryController::class, 'destroy'])->name("admin.categories.delete"); // Matches "/categories/delete"
-    })->middleware('auth');
+    });
 
 
     // Route for managing all about Publishers
     Route::prefix('publishers')->group(function () {
         Route::get('/', [PublisherController::class, 'index'])->name("admin.publishers.index"); // Matches "/publishers/"
-        Route::get('/create', [PublisherController::class, 'create'])->middleware('auth')->name("admin.publishers.create"); // Matches "/publishers/create"
+        Route::get('/create', [PublisherController::class, 'create'])->name("admin.publishers.create"); // Matches "/publishers/create"
         Route::post('/store', [PublisherController::class, 'store'])->name("admin.publishers.store"); // Matches "/publishers/add"
-        Route::get('/edit/{id}', [PublisherController::class, 'edit'])->middleware('auth')->name("admin.publishers.edit"); // Matches "/publishers/edit"
+        Route::get('/edit/{id}', [PublisherController::class, 'edit'])->name("admin.publishers.edit"); // Matches "/publishers/edit"
         Route::post('/update/{id}', [PublisherController::class, 'update'])->name("admin.publishers.update"); // Matches "/publishers/update"
-        Route::delete('/destroy/{id}', [PublisherController::class, 'destroy'])->middleware('auth')->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
-    })->middleware('auth');
+        Route::delete('/destroy/{id}', [PublisherController::class, 'destroy'])->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
+    });
 
 });
+
+// Route for user

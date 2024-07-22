@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h1 class="mb-4">Hello, {{ auth()->user()->name }}</h1>
 
@@ -56,4 +56,4 @@
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
-</x-layout>
+</x-app-layout>
