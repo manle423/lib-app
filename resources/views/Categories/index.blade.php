@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h1 class="text-center mb-4">All Categories</h1>
         @if (session('success'))
@@ -12,16 +12,16 @@
                 {{ session('error') }}
             </div>
         @endif
-        <a href="{{ route('admin.category.create') }}" class="btn btn-primary mb-3">Add Category</a>
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">Add Category</a>
         <div class="row">
             @foreach ($categories as $item)
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-content-center"> <a
-                                    href="{{ route('admin.category.edit', $item->id) }}"
+                                    href="{{ route('admin.categories.edit', $item->id) }}"
                                     class="card-title h2 text-decoration-none">{{ $item->name }}</a>
-                                <a href="{{ route('admin.category.delete', $item->id) }}" onclick="confirm(event)"
+                                <a href="{{ route('admin.categories.delete', $item->id) }}" onclick="confirm(event)"
                                     class="card-title h2 text-decoration-none">
                                     <i class='fas fa-trash-alt' style='font-size:20px'></i>
                                 </a>
@@ -43,4 +43,4 @@
     </div>
     <x-sweetalert />
 
-</x-layout>
+</x-app-layout>

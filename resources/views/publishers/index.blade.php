@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h1 class="text-center mb-4">All Publishers</h1>
 
@@ -13,7 +13,7 @@
         <div class="row">
             {{-- the $publishers is declared at PublisherController  --}}
             @foreach ($publishers as $item)
-                <x-publisherCard :item="$item" />
+                <x-cards.publisher :item="$item" />
             @endforeach
 
         </div>
@@ -22,7 +22,7 @@
             {{ $publishers->links('pagination::bootstrap-5') }}
         </div>
     </div>
-</x-layout>
+</x-app-layout>
 
 
 {{-- @auth
