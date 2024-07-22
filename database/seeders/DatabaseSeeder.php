@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Publisher::factory(10)->create();
-        // Category::factory(10)->create();
+        Category::factory(10)->create();
     }
 }

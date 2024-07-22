@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -12,6 +15,8 @@ class BookController extends Controller
     public function index()
     {
         //
+        $books = Book::latest()->paginate(6);
+        return view('books.index', compact('books'));
     }
 
     /**
@@ -20,6 +25,9 @@ class BookController extends Controller
     public function create()
     {
         //
+        $category = Category::all();
+        $publisher = Publisher::all();
+        return view('books.create');
     }
 
     /**
@@ -28,6 +36,16 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => 'required|max:255|string|unique:books',
+            'author_id' => 'required',
+            'ISBN' => 'required|max:255|string',
+            'image' => 'max:255|string|mimes:png,jpg,jpeg',
+            'publisher_id' => 'required',
+            'published_year' => 'nullable|date',
+            'category_id' => 'required'
+
+        ]);
     }
 
     /**
