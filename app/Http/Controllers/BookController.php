@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 class BookController extends Controller
 {
@@ -25,9 +28,10 @@ class BookController extends Controller
     public function create()
     {
         //
-        $category = Category::all();
+        $authors = Author::all();
+        $categories = Category::all();
         $publisher = Publisher::all();
-        return view('books.create');
+        return view('books.create', compact('authors', 'categories', 'publisher'));
     }
 
     /**
@@ -35,17 +39,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        // $request->validate([
-        //     'title' => 'required|max:255|string|unique:books',
-        //     'author_id' => 'required|exists:authors,id',
-        //     'ISBN' => 'required|max:255|string',
-        //     'image' => 'nullable|mimes:png,jpg,jpeg|max:2048', // Updated validation for image
-        //     'publisher_id' => 'required|exists:publishers,id',
-        //     'published_year' => 'nullable|integer|min:1900|max:' . date('Y'),
-        //     'category_id' => 'required|exists:categories,id'
-        // ]);
-
+        $request->validate([
+            'title' => 'required|max:255|string|unique:books,title',
+            'author_id' => 'required|exists:authors,id',
+            'ISBN' => 'required|max:255|string',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'publisher_id' => 'required|exists:publishers,id',
+            'published_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id'
+        ]);
         // Handle the file upload
         $filename = null;
         $path = 'uploads/books/';
@@ -95,6 +97,11 @@ class BookController extends Controller
     public function edit(string $id)
     {
         //
+        $books = Book::findOrFail($id);
+        $authors = Author::all();
+        $categories = Category::all();
+        $publisher = Publisher::all();
+        return view('books.edit', compact('books', 'authors', 'categories', 'publisher'));
     }
 
     /**
@@ -103,6 +110,40 @@ class BookController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $book = Book::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|max:255|string|unique:books,title,' . $id,
+            'author_id' => 'required|exists:authors,id',
+            'ISBN' => 'required|max:255|string',
+            'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
+            'publisher_id' => 'required|exists:publishers,id',
+            'published_year' => 'nullable|integer|min:1900|max:' . date('Y'),
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        $filename = $book->image;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $path = 'uploads/books/';
+            $file->move(public_path($path), $filename);
+        }
+        if (File::exists($book->image)) {
+            File::delete($book->image);
+        }
+
+        $book->update([
+            'title' => $request->title,
+            'author_id' => $request->author_id,
+            'ISBN' => $request->ISBN,
+            'image' => $filename ? $path . $filename : $book->image,
+            'publisher_id' => $request->publisher_id,
+            'published_year' => $request->published_year,
+            'category_id' => $request->category_id
+        ]);
+
+        return back()->with('success', 'Book updated successfully.');
     }
 
     /**
@@ -111,5 +152,11 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         //
+        $book = Book::findOrFail($id);
+        if (File::exists($book->image)) {
+            File::delete($book->image);
+        }
+        $book->delete();
+        return back()->with('status', 'Deleted');
     }
 }

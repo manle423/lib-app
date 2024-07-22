@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Publisher;
 use App\Models\User;
@@ -21,8 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        Publisher::factory(10)->create();
-        Category::factory(10)->create();
+        Author::factory(10)->create();
+        // Publisher::factory(10)->create();
+        // Category::factory(10)->create();
     }
 }
