@@ -11,7 +11,7 @@
 
         <form action="{{ route('admin.publishers.update', $publisher->id) }}" method="POST">
             @csrf
-            @method('PUT')
+            {{-- @method('PUT') --}}
 
             {{-- Name of the publisher --}}
             <div class="form-group mb-3">
