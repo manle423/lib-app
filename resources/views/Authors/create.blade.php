@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h2 class="mb-4">Create an Author</h2>
 
@@ -15,8 +15,8 @@
             {{-- Name of the author --}}
             <div class="form-group mb-3">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name"
-                    placeholder="Enter author's name" requried>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter author's name"
+                    requried>
                 @error('name')
                     <p class="error">{{ $message }}</p>
                 @enderror
@@ -26,4 +26,7 @@
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
-</x-layout>
+
+
+
+</x-app-layout>

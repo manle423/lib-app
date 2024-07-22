@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::latest()->paginate(6);
-        return view('Category.index', compact('categories'));
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('Category.create');
+        return view('categories.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::findOrFail($id);
-        return view('Category.edit', compact('category'));
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -79,16 +79,16 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         if (!$category) {
-            return redirect()->route('admin.category.index')
+            return redirect()->route('admin.categories.index')
                 ->with('error', 'Category not found.');
         }
         if ($category->books()->count() > 0) {
-            return redirect()->route('admin.category.index')
+            return redirect()->route('admin.categories.index')
                 ->with('error', 'Category cannot be deleted because it has associated books.');
         }
 
         $category->delete();
-        return redirect()->route('admin.category.index')
+        return redirect()->route('admin.categories.index')
             ->with('success', 'Delete successfully!.');
     }
 }

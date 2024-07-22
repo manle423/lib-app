@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h1 class="mb-4">Hello, {{ auth()->user()->name }}</h1>
 
@@ -12,7 +12,7 @@
         @endif
         <div class="row">
             <div class="col-md-6">
-                <form action="{{ route('admin.category.store') }}" method="post">
+                <form action="{{ route('admin.categories.store') }}" method="post">
                     @csrf
 
                     {{-- Name of the publisher --}}
@@ -34,4 +34,4 @@
         </div>
 
     </div>
-</x-layout>
+</x-app-layout>

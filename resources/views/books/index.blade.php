@@ -1,7 +1,7 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h1 class="text-center mb-4">All Books</h1>
-        <a href="{{ route('admin.book.create') }}" class="btn btn-primary mb-3">Add books</a>
+        <a href="{{ route('admin.books.create') }}" class="btn btn-primary mb-3">Add books</a>
         <div class="row">
 
             <div class="container mt-3">
@@ -34,8 +34,8 @@
                                 <td>{{ $item->published_year }}</td>
                                 <td>{{ $item->category_id }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td><a href="{{ route('admin.book.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <a href="{{ route('admin.book.delete', $item->id) }}" onclick="confirm(event)"
+                                <td><a href="{{ route('admin.books.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('admin.books.delete', $item->id) }}"
                                         class="btn btn-danger">Delete</a>
                                 </td>
 
@@ -53,4 +53,4 @@
         </div>
         <x-sweetalert />
 
-</x-layout>
+</x-app-layout>

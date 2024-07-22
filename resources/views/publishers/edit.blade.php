@@ -1,4 +1,4 @@
-<x-layout>
+<x-app-layout>
     <div class="container my-5">
         <h2 class="mb-4">Edit publisher</h2>
 
@@ -55,4 +55,4 @@
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
-</x-layout>
+</x-app-layout>

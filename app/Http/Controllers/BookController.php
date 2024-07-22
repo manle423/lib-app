@@ -80,7 +80,7 @@ class BookController extends Controller
             'quantity' => 50
         ]);
 
-        return redirect()->route('admin.book.index')->with('success', 'Book added successfully.');
+        return redirect()->route('admin.books.index')->with('success', 'Book added successfully.');
     }
 
     /**
@@ -122,26 +122,45 @@ class BookController extends Controller
             'category_id' => 'required|exists:categories,id'
         ]);
 
+        // dd([$request->hasFile('image')]);
         $filename = $book->image;
-        if ($request->hasFile('image')) {
+        if (!$request->hasFile('image')) {
+            $book->update([
+                'title' => $request->title,
+                'author_id' => $request->author_id,
+                'ISBN' => $request->ISBN,
+                'image' => $book->image,
+                'publisher_id' => $request->publisher_id,
+                'published_year' => $request->published_year,
+                'category_id' => $request->category_id
+            ]);
+        } else {
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
+            // dd($file->getClientOriginalExtension());
             $path = 'uploads/books/';
             $file->move(public_path($path), $filename);
-        }
-        if (File::exists($book->image)) {
-            File::delete($book->image);
+            $book->update([
+                'title' => $request->title,
+                'author_id' => $request->author_id,
+                'ISBN' => $request->ISBN,
+                'image' => $path . $filename,
+                'publisher_id' => $request->publisher_id,
+                'published_year' => $request->published_year,
+                'category_id' => $request->category_id
+            ]);
         }
 
-        $book->update([
-            'title' => $request->title,
-            'author_id' => $request->author_id,
-            'ISBN' => $request->ISBN,
-            'image' => $filename ? $path . $filename : $book->image,
-            'publisher_id' => $request->publisher_id,
-            'published_year' => $request->published_year,
-            'category_id' => $request->category_id
-        ]);
+        // $book->update([
+        //     'title' => $request->title,
+        //     'author_id' => $request->author_id,
+        //     'ISBN' => $request->ISBN,
+        //     'image' => $filename ? $path . $filename : $book->image,
+        //     'publisher_id' => $request->publisher_id,
+        //     'published_year' => $request->published_year,
+        //     'category_id' => $request->category_id
+        // ]);
+
 
         return back()->with('success', 'Book updated successfully.');
     }
