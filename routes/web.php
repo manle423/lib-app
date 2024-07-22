@@ -30,7 +30,6 @@ Route::prefix('admin')->group(function () {
 Route::middleware('auth')->group(function () {
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     // Route for logout user
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
