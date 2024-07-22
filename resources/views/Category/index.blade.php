@@ -1,6 +1,17 @@
 <x-layout>
     <div class="container my-5">
         <h1 class="text-center mb-4">All Categories</h1>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <a href="{{ route('admin.category.create') }}" class="btn btn-primary mb-3">Add Category</a>
         <div class="row">
             @foreach ($categories as $item)
@@ -30,32 +41,6 @@
             {{ $categories->links('pagination::bootstrap-5') }}
         </div>
     </div>
-    <script type="text/javascript">
-        function confirm(ev) {
-            ev.preventDefault();
-            var url = ev.currentTarget.getAttribute('href');
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Once deleted, you will not be able to recover this item!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, keep it'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = url;
-                } else {
-                    Swal.fire('Your item is safe!');
-                }
-            });
-        }
-    </script>
-    <!-- SweetAlert CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-    <!-- SweetAlert JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <x-sweetalert />
 
 </x-layout>

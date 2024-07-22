@@ -42,6 +42,7 @@ class Book extends Model
             }
         }
     }
+
     public function publisher(): BelongsTo
     {
         return $this->belongsTo(Publisher::class);

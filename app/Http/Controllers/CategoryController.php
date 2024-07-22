@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Book;
+
 use Illuminate\Http\Request;
 
 
@@ -80,12 +82,10 @@ class CategoryController extends Controller
             return redirect()->route('admin.category.index')
                 ->with('error', 'Category not found.');
         }
-        // if ($category->products()->count() > 0) {
-        //     Nếu có sản phẩm liên quan, không cho phép xóa
-        //     return redirect()->route('category.index')
-        //         ->with('error', 'Cannot delete category with products.');
-        // }
-        //
+        if ($category->books()->count() > 0) {
+            return redirect()->route('admin.category.index')
+                ->with('error', 'Category cannot be deleted because it has associated books.');
+        }
 
         $category->delete();
         return redirect()->route('admin.category.index')
