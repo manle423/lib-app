@@ -17,8 +17,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'user'])->name('dashboard');
+    return view('users.dashboard');
+})->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
 
@@ -83,7 +83,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/update/{id}', [LoanController::class, 'update'])->name("admin.loans.update"); // Matches "/loans/update"
         Route::get('/destroy/{id}', [LoanController::class, 'destroy'])->name("admin.loans.destroy"); // Matches "/loans/destroy"
     });
-
 });
 
 // Route for user
