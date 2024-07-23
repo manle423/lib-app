@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         //
         $books = Book::latest()->paginate(6);
-        return view('books.index', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BookController extends Controller
         $authors = Author::all();
         $categories = Category::all();
         $publisher = Publisher::all();
-        return view('books.create', compact('authors', 'categories', 'publisher'));
+        return view('admin.books.create', compact('authors', 'categories', 'publisher'));
     }
 
     /**
@@ -101,7 +101,7 @@ class BookController extends Controller
         $authors = Author::all();
         $categories = Category::all();
         $publisher = Publisher::all();
-        return view('books.edit', compact('books', 'authors', 'categories', 'publisher'));
+        return view('admin.books.edit', compact('books', 'authors', 'categories', 'publisher'));
     }
 
     /**

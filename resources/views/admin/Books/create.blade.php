@@ -2,7 +2,7 @@
     <div class="container my-5">
         <h1 class="mb-4">Hello, {{ auth()->user()->name }}</h1>
 
-        <h2 class="mb-4">Create a Category</h2>
+        <h2 class="mb-4">Create a Book</h2>
 
         {{-- Session message --}}
         @if (session('success'))

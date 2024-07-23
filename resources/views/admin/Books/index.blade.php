@@ -34,7 +34,8 @@
                                 <td>{{ $item->published_year }}</td>
                                 <td>{{ $item->category_id }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td><a href="{{ route('admin.books.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                <td>
+                                    <a href="{{ route('admin.books.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <a href="{{ route('admin.books.delete', $item->id) }}"
                                         class="btn btn-danger">Delete</a>
                                 </td>
