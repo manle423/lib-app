@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         //
         $books = Book::latest()->paginate(6);
-        return view('books.index', compact('books'));
+        return view('admin.books.index', compact('books'));
     }
 
     /**
@@ -31,7 +31,7 @@ class BookController extends Controller
         $authors = Author::all();
         $categories = Category::all();
         $publisher = Publisher::all();
-        return view('books.create', compact('authors', 'categories', 'publisher'));
+        return view('admin.books.create', compact('authors', 'categories', 'publisher'));
     }
 
     /**
@@ -40,7 +40,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255|string|unique:books,title',
+            'title' => 'required|max:255|string',
             'author_id' => 'required|exists:authors,id',
             'ISBN' => 'required|max:255|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
@@ -101,7 +101,7 @@ class BookController extends Controller
         $authors = Author::all();
         $categories = Category::all();
         $publisher = Publisher::all();
-        return view('books.edit', compact('books', 'authors', 'categories', 'publisher'));
+        return view('admin.books.edit', compact('books', 'authors', 'categories', 'publisher'));
     }
 
     /**
