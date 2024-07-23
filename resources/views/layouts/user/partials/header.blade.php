@@ -51,8 +51,8 @@
                         <div class="right-element d-flex justify-center float-end">
                             @if (Auth::check())
                                 <!-- Nếu người dùng đã đăng nhập -->
-                                <a href="{{ route('login') }}" class="user-account for-buy me-0"
-                                    style="display: none;"><i class="icon icon-user"></i><span>Account</span></a>
+                                <a href="{{ route('profile.edit') }}" class="user-account for-buy me-0"
+                                    style="display: block;"><i class="icon icon-user"></i><span>Account</span></a>
                                 <form class="m-0 p-0" method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')"
@@ -63,11 +63,11 @@
                                 </form>
                             @else
                                 <!-- Nếu người dùng chưa đăng nhập -->
-                                <a href="{{ route('register') }}" class="user-account for-buy me-3"><i
-                                        class="icon icon-user"></i><span>Register</span></a>
                                 <a href="{{ route('login') }}" class="user-account for-buy me-3"><i
                                         class="icon icon-user"></i><span>Login</span></a>
-                                <form class="m-0 p-0" method="POST" action="{{ route('logout') }}"
+                                <a href="{{ route('register') }}" class="user-account for-buy me-3"><i
+                                        class="icon icon-user"></i><span>Register</span></a>
+                                {{-- <form class="m-0 p-0" method="POST" action="{{ route('logout') }}"
                                     style="display: none;">
                                     @csrf
                                     <x-dropdown-link :href="route('logout')"
@@ -75,7 +75,7 @@
                                                 this.closest('form').submit();">
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
-                                </form>
+                                </form> --}}
                             @endif
 
                             <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0

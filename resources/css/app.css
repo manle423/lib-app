@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.error {
+    color: #dc3545; /* Màu chữ đỏ */
+    font-size: 0.875rem; /* Font size nhỏ hơn */
+    margin-top: 0.25rem; /* Khoảng cách từ trên xuống */
+    font-weight: normal; /* Bỏ in đậm nếu cần */
+}

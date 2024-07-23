@@ -17,7 +17,7 @@ class PublisherController extends Controller
 
         // dd($publishers);
 
-        return view('publishers.index', compact('publishers'));
+        return view('admin.publishers.index', compact('publishers'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        return view('publishers.create');
+        return view('admin.publishers.create');
     }
 
     /**
@@ -63,13 +63,12 @@ class PublisherController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    { {
-            // Find the publisher by ID
-            $publisher = Publisher::findOrFail($id);
+    {
+        // Find the publisher by ID
+        $publisher = Publisher::findOrFail($id);
 
-            // Return the edit view with the publisher data
-            return view('publishers.edit', compact('publisher'));
-        }
+        // Return the edit view with the publisher data
+        return view('admin.publishers.edit', compact('publisher'));
     }
 
     /**

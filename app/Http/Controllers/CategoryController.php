@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         //
         $categories = Category::latest()->paginate(6);
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     {
         //
         $category = Category::findOrFail($id);
-        return view('categories.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**

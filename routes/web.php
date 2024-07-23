@@ -6,14 +6,17 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+Route::redirect('/', 'dashboard');
 
 Route::get('/dashboard', function () {
     return view('users.dashboard');
@@ -71,6 +74,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/edit/{id}', [PublisherController::class, 'edit'])->name("admin.publishers.edit"); // Matches "/publishers/edit"
         Route::post('/update/{id}', [PublisherController::class, 'update'])->name("admin.publishers.update"); // Matches "/publishers/update"
         Route::delete('/destroy/{id}', [PublisherController::class, 'destroy'])->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
+    });
+
+    // Route for managing all about Loans
+    Route::prefix('loans')->group(function () {
+        Route::get('/', [LoanController::class, 'index'])->name("admin.loans.index"); // Matches "/loans/"
+        Route::get('/create', [LoanController::class, 'create'])->name("admin.loans.create"); // Matches "/loans/create"
+        Route::post('/store', [LoanController::class, 'store'])->name("admin.loans.store"); // Matches "/loans/add"
+        Route::get('/edit/{id}', [LoanController::class, 'edit'])->name("admin.loans.edit"); // Matches "/loans/edit"
+        Route::post('/update/{id}', [LoanController::class, 'update'])->name("admin.loans.update"); // Matches "/loans/update"
+        Route::get('/destroy/{id}', [LoanController::class, 'destroy'])->name("admin.loans.destroy"); // Matches "/loans/destroy"
     });
 });
 
