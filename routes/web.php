@@ -5,23 +5,15 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// })->name('home');
-
 Route::redirect('/', 'dashboard');
 
-// Route::get('/dashboard', function () {
-//     return view('users.dashboard');
-// })->middleware('admin')->name('dashboard');
-
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
+Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
 
 // Route for admin
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -75,6 +67,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/edit/{id}', [PublisherController::class, 'edit'])->name("admin.publishers.edit"); // Matches "/publishers/edit"
         Route::post('/update/{id}', [PublisherController::class, 'update'])->name("admin.publishers.update"); // Matches "/publishers/update"
         Route::get('/destroy/{id}', [PublisherController::class, 'destroy'])->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
+    });
+
+    // Route for managing all about Loans
+    Route::prefix('loans')->group(function () {
+        Route::get('/', [LoanController::class, 'index'])->name("admin.loans.index"); // Matches "/loans/"
+        Route::get('/create', [LoanController::class, 'create'])->name("admin.loans.create"); // Matches "/loans/create"
+        Route::post('/store', [LoanController::class, 'store'])->name("admin.loans.store"); // Matches "/loans/add"
+        Route::get('/edit/{id}', [LoanController::class, 'edit'])->name("admin.loans.edit"); // Matches "/loans/edit"
+        Route::post('/update/{id}', [LoanController::class, 'update'])->name("admin.loans.update"); // Matches "/loans/update"
+        Route::get('/destroy/{id}', [LoanController::class, 'destroy'])->name("admin.loans.destroy"); // Matches "/loans/destroy"
     });
 });
 
