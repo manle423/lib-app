@@ -12,9 +12,11 @@ use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
+
+Route::redirect('/', 'dashboard');
 
 Route::get('/dashboard', function () {
     return view('users.dashboard');
