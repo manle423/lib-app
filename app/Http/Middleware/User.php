@@ -16,9 +16,9 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->role != 0){
-        return redirect()->route('admin.dashboard');
-    }
+        if (Auth::check() && Auth::user()->role != 0) {
+            return redirect()->route('admin.dashboard');
+        }
         return $next($request);
     }
 }

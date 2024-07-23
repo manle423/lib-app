@@ -5,8 +5,8 @@
         {{-- Session message --}}
         @if (session('success'))
             <x-flash-msg :msg="session('success')" type="success" />
-            {{-- @elseif (session('error'))
-            <x-flash-msg :msg="session('error')" type="danger" /> --}}
+        @elseif (session('error'))
+            <x-flash-msg :msg="session('error')" type="danger" />
         @endif
 
         <a href="{{ route('admin.publishers.create') }}" class="btn btn-primary mb-3">Add Publisher</a>

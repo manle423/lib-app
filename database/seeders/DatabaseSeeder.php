@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Author;
+use App\Models\Book;
 use App\Models\Category;
+use App\Models\Loan;
 use App\Models\Publisher;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,8 +24,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        Author::factory(10)->create();
+        // Author::factory(10)->create();
         // Publisher::factory(10)->create();
         // Category::factory(10)->create();
+        // Book::factory(10)->create();
+        Loan::factory(50)->create();
     }
 }

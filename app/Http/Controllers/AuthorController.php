@@ -93,10 +93,18 @@ class AuthorController extends Controller
         // Find the author by ID
         $author = Author::findOrFail($id);
 
+        // Check if the author exists before deleting it
         if (!$author) {
             return redirect()->route('admin.authors.index')
                 ->with('error', 'Author not found.');
         }
+
+        // Check if the author has any book
+        if ($author->books()->count() > 0) {
+            return redirect()->route('admin.authors.index')
+                ->with('error', 'Author cannot be deleted because it has associated books.');
+        }
+
         // Delete the author
         $author->delete();
 

@@ -78,6 +78,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
+        
         if (!$category) {
             return redirect()->route('admin.categories.index')
                 ->with('error', 'Category not found.');

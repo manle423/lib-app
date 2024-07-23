@@ -172,6 +172,16 @@ class BookController extends Controller
     {
         //
         $book = Book::findOrFail($id);
+
+        if (!$book) {
+            return redirect()->route('admin.books.index')
+                ->with('error', 'Book not found.');
+        }
+        if ($book->loans()->count() > 0) {
+            return redirect()->route('admin.books.index')
+                ->with('error', 'Book cannot be deleted because it has associated loans.');
+        }
+
         if (File::exists($book->image)) {
             File::delete($book->image);
         }

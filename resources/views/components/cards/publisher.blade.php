@@ -11,9 +11,15 @@
                 <!-- Edit Button -->
                 <a href="{{ route('admin.publishers.edit', $item->id) }}"
                     class="card-title h2 text-decoration-none">{{ $item->name }}</a>
-                    
+
+                {{-- Delete Button --}}
+                <a href="{{ route('admin.publishers.destroy', $item->id) }}" onclick="confirm(event)"
+                    class="card-title h2 text-decoration-none">
+                    <i class='fas fa-trash-alt' style='font-size:20px'></i>
+                </a>
+
                 <!-- Delete Button -->
-                <form action="{{ route('admin.publishers.destroy', $item->id) }}" method="POST"
+                {{-- <form action="{{ route('admin.publishers.destroy', $item->id) }}" method="POST"
                     onsubmit="return confirm('Are you sure you want to delete this publisher?');"
                     style="display: inline;">
                     @csrf
@@ -21,7 +27,7 @@
                     <button type="submit" class="card-title h2 text-decoration-none">
                         <i class="fas fa-trash-alt" style="font-size:20px"></i>
                     </button>
-                </form>
+                </form> --}}
             </div>
             <p class="card-text"><strong>Updated At:</strong> {{ $item->updated_at->diffForHumans() }}
             </p>
@@ -30,4 +36,6 @@
             <p class="card-text"><strong>Email:</strong> {{ $item->email }}</p>
         </div>
     </div>
-</div>  
+</div>
+
+<x-sweetalert />

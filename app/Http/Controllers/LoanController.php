@@ -107,6 +107,11 @@ class LoanController extends Controller
         // Find loan by id
         $loan = Loan::findOrFail($id);
 
+        if (!$loan) {
+            return redirect()->route('admin.loans.index')
+                ->with('error', 'Loan not found.');
+        }
+
         $loan->delete();
 
         return back()->with('status', 'Deleted');

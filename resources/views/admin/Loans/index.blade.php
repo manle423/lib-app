@@ -2,6 +2,14 @@
     <div class="container my-5">
         <h1 class="text-center mb-4">All Loans</h1>
         <a href="{{ route('admin.loans.create') }}" class="btn btn-primary mb-3">Add Loans</a>
+
+        {{-- Session message --}}
+        @if (session('success'))
+            <x-flash-msg :msg="session('success')" type="success" />
+        @elseif (session('error'))
+            <x-flash-msg :msg="session('error')" type="danger" />
+        @endif
+
         <div class="row">
 
             <div class="container mt-3">

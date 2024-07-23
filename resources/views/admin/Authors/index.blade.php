@@ -21,8 +21,8 @@
         {{-- Session message --}}
         @if (session('success'))
             <x-flash-msg :msg="session('success')" type="success" />
-            {{-- @elseif (session('error'))
-            <x-flash-msg :msg="session('error')" type="danger" /> --}}
+        @elseif (session('error'))
+            <x-flash-msg :msg="session('error')" type="danger" />
         @endif
 
         <a href="{{ route('admin.authors.create') }}" class="btn btn-primary mb-3">Add Author</a>
@@ -38,5 +38,4 @@
             {{ $authors->links('pagination::bootstrap-5') }}
         </div>
     </div>
-
 </x-app-layout>

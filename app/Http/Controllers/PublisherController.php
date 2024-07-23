@@ -102,6 +102,16 @@ class PublisherController extends Controller
         // Find the publisher by ID
         $publisher = Publisher::findOrFail($id);
 
+        if (!$publisher) {
+            return redirect()->route('admin.publishers.index')
+                ->with('error', 'Publisher not found.');
+        }
+        
+        if ($publisher->books->count() > 0) {
+            return redirect()->route('admin.publishers.index')
+                ->with('error', 'Publisher cannot be deleted because it has associated books.');
+        }
+
         // Delete the publisher
         $publisher->delete();
 

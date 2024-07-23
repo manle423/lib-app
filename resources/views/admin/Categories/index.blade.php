@@ -1,17 +1,14 @@
 <x-app-layout>
     <div class="container my-5">
         <h1 class="text-center mb-4">All Categories</h1>
+
+        {{-- Session message --}}
         @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+            <x-flash-msg :msg="session('success')" type="success" />
+        @elseif (session('error'))
+            <x-flash-msg :msg="session('error')" type="danger" />
         @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary mb-3">Add Category</a>
         <div class="row">
             @foreach ($categories as $item)

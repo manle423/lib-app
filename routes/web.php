@@ -20,7 +20,7 @@ Route::redirect('/', 'dashboard');
 
 Route::get('/dashboard', function () {
     return view('users.dashboard');
-})->name('dashboard');
+})->middleware('admin')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,7 +42,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/store', [AuthorController::class, 'store'])->name("admin.authors.store"); // Matches "/authors/add"
         Route::get('/edit/{id}', [AuthorController::class, 'edit'])->name("admin.authors.edit"); // Matches "/authors/edit"
         Route::post('/update/{id}', [AuthorController::class, 'update'])->name("admin.authors.update"); // Matches "/authors/update"
-        Route::delete('/delete/{id}', [AuthorController::class, 'destroy'])->name("admin.authors.destroy"); // Matches "/authors/delete"
+        Route::get('/delete/{id}', [AuthorController::class, 'destroy'])->name("admin.authors.destroy"); // Matches "/authors/delete"
     });
 
     // Route for managing all about Books
@@ -73,7 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/store', [PublisherController::class, 'store'])->name("admin.publishers.store"); // Matches "/publishers/add"
         Route::get('/edit/{id}', [PublisherController::class, 'edit'])->name("admin.publishers.edit"); // Matches "/publishers/edit"
         Route::post('/update/{id}', [PublisherController::class, 'update'])->name("admin.publishers.update"); // Matches "/publishers/update"
-        Route::delete('/destroy/{id}', [PublisherController::class, 'destroy'])->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
+        Route::get('/destroy/{id}', [PublisherController::class, 'destroy'])->name("admin.publishers.destroy"); // Matches "/publishers/destroy"
     });
 
     // Route for managing all about Loans

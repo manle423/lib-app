@@ -2,7 +2,7 @@
     <div class="container my-5">
         <h1 class="mb-4">Hello, {{ auth()->user()->name }}</h1>
 
-        <h2 class="mb-4">Update a Category</h2>
+        <h2 class="mb-4">Update a Book</h2>
 
         {{-- Session message --}}
         @if (session('success'))
@@ -52,8 +52,15 @@
                         <label for="name">Image</label>
                         <input type="file" class="form-control" id="image" name="image">
                         @if ($books->image)
-                            <p>Current image: <img src="{{ asset($books->image) }}" alt="Current image" width="100">
-                            </p>
+                            @php
+                                $imagePath = $books->image;
+                                $defaultImage = 'users/images/noimage.png';
+                                $image = File::exists(public_path($imagePath))
+                                    ? asset($imagePath)
+                                    : asset($defaultImage);
+                            @endphp
+                            {{-- <p>Current image: <img src="{{ asset($books->image) }}" alt="Current image" width="100"></p> --}}
+                            <p>Current image: <img src="{{ $image }}" alt="Current image" width="100"></p>
                         @endif
                         <div>
                             <label for="publisher_id">Publisher</label>
