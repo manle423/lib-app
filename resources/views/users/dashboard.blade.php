@@ -1,7 +1,6 @@
 @extends('layouts.user.app')
 @section('title', 'User Dashboard')
 @section('content')
-
     <section id="featured-books" class="py-5 my-5">
         <div class="container">
             <div class="row">
@@ -11,29 +10,34 @@
                         <div class="title">
                             <span>Some quality items</span>
                         </div>
-                        <h2 class="section-title">Featured Books</h2>
+                        <h2 class="section-title">Our Books</h2>
                     </div>
 
                     <div class="product-list" data-aos="fade-up">
                         <div class="row">
 
-                            <div class="col-md-3">
-                                <div class="product-item">
-                                    <figure class="product-style">
-                                        <img src="{{ asset('users/images/product-item1.jpg') }}" alt="Books"
-                                            class="product-item">
-                                        <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to
-                                            Cart</button>
-                                    </figure>
-                                    <figcaption>
-                                        <h3>Simple way of piece life</h3>
-                                        <span>Armor Ramsey</span>
-                                        <div class="item-price">$ 40.00</div>
-                                    </figcaption>
-                                </div>
-                            </div>
 
-                            <div class="col-md-3">
+                            @if ($features->isEmpty())
+                                <p>No features available.</p>
+                            @else
+                                @foreach ($features as $feature)
+                                    <div class="col-md-3">
+                                        <div class="product-item">
+                                            <figure class="product-style">
+                                                <img src="{{ asset($feature->image) }}" alt="Books" class="product-item">
+                                                <button type="button" class="add-to-cart"
+                                                    data-product-tile="add-to-cart">Borrow books</button>
+                                            </figure>
+                                            <figcaption>
+                                                <h3>{{ $feature->title }}</h3>
+                                                <span>{{ $feature->author->name }}</span>
+                                                <div class="item-price">{{ $feature->publisher->name }}</div>
+                                            </figcaption>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                            {{-- <div class="col-md-3">
                                 <div class="product-item">
                                     <figure class="product-style">
                                         <img src="{{ asset('users/images/product-item2.jpg') }}
@@ -80,7 +84,7 @@
                                         <div class="item-price">$ 35.00</div>
                                     </figcaption>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div><!--ft-books-slider-->
                     </div><!--grid-->
@@ -121,16 +125,16 @@
 
                         <div class="col-md-6">
                             <div class="product-entry">
-                                <h2 class="section-title divider">Best Selling Book</h2>
+                                <h2 class="section-title divider">Featured Book</h2>
 
                                 <div class="products-content">
-                                    <div class="author-name">By Timbur Hood</div>
-                                    <h3 class="item-title">Birds gonna be happy</h3>
+                                    <div class="author-name">{{ $book->author->name }}</div>
+                                    <h3 class="item-title">{{ $book->title }}</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
                                         libero ipsum enim pharetra hac.</p>
-                                    <div class="item-price">$ 45.00</div>
+                                    <div class="item-price">{{ $book->published_year }}</div>
                                     <div class="btn-wrap">
-                                        <a href="#" class="btn-accent-arrow">shop it now <i
+                                        <a href="#" class="btn-accent-arrow">Borrow now ! <i
                                                 class="icon icon-ns-arrow-right"></i></a>
                                     </div>
                                 </div>
@@ -161,11 +165,14 @@
 
                     <ul class="tabs">
                         <li data-tab-target="#all-genre" class="active tab">All Genre</li>
-                        <li data-tab-target="#business" class="tab">Business</li>
+                        @foreach ($categories as $category)
+                            <li data-tab-target="#{{ $category->name }}" class="tab">{{ $category->name }}</li>
+                        @endforeach
+                        {{-- <li data-tab-target="#business" class="tab">Business</li>
                         <li data-tab-target="#technology" class="tab">Technology</li>
                         <li data-tab-target="#romantic" class="tab">Romantic</li>
                         <li data-tab-target="#adventure" class="tab">Adventure</li>
-                        <li data-tab-target="#fictional" class="tab">Fictional</li>
+                        <li data-tab-target="#fictional" class="tab">Fictional</li> --}}
                     </ul>
 
                     <div class="tab-content">
@@ -178,8 +185,8 @@
                                             <img src="{{ asset('users/images/tab-item1.jpg') }}
                                             "
                                                 alt="Books" class="product-item">
-                                            <button type="button" class="add-to-cart"
-                                                data-product-tile="add-to-cart">Add to
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                                to
                                                 Cart</button>
                                         </figure>
                                         <figcaption>
@@ -196,8 +203,8 @@
                                             <img src="{{ asset('users/images/tab-item2.jpg') }}
                                            "
                                                 alt="Books" class="product-item">
-                                            <button type="button" class="add-to-cart"
-                                                data-product-tile="add-to-cart">Add to
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                                to
                                                 Cart</button>
                                         </figure>
                                         <figcaption>
@@ -213,8 +220,8 @@
                                         <figure class="product-style">
                                             <img src="{{ asset('users/images/tab-item3.jpg') }}" alt="Books"
                                                 class="product-item">
-                                            <button type="button" class="add-to-cart"
-                                                data-product-tile="add-to-cart">Add to
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                                to
                                                 Cart</button>
                                         </figure>
                                         <figcaption>
