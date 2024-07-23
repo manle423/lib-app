@@ -15,17 +15,16 @@ class Loan extends Model
         'book_id',
         'loan_date',
         'due_date',
-        'return_date',
+        'return_ date',
     ];
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function book() : BelongsTo
+    public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
-    
 }
