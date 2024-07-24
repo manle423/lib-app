@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Loan extends Model
 {
@@ -17,6 +18,11 @@ class Loan extends Model
         'due_date',
         'return_date'
     ];
+
+    public function borrower() : HasOne
+    {
+        return $this->hasOne(Borrower::class);
+    }
 
     public function user(): BelongsTo
     {

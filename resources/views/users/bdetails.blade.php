@@ -13,7 +13,7 @@
                             libero ipsum enim pharetra hac.</p>
                         <div class="item-price">{{ $book->published_year }}</div>
                         <div class="btn-wrap">
-                            <a href="#" class="btn-accent-arrow">Borrow now ! <i
+                            <a href="{{ route('borrows_book', $book->id) }}" class="btn-accent-arrow">Borrow now ! <i
                                     class="icon icon-ns-arrow-right"></i></a>
                         </div>
                     </div>
@@ -25,7 +25,5 @@
                     class="img-fluid img-thumbnail rounded mx-auto d-block mt-5">
             </div>
         </div>
-
-
     </div>
 @endsection
