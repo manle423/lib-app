@@ -1,6 +1,52 @@
 @extends('layouts.user.app')
 @section('title', 'User Dashboard')
 @section('content')
+    <section id="billboard">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <button class="prev slick-arrow">
+                        <i class="icon icon-arrow-left"></i>
+                    </button>
+
+                    <div class="main-slider pattern-overlay">
+
+                        @if ($features->isEmpty())
+                            <p>Updating...</p>
+                        @else
+                            @foreach ($features as $feature)
+                                <div class="slider-item">
+                                    <div class="banner-content">
+                                        <h2 class="banner-title">{{ $feature->title }}</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
+                                            libero
+                                            ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet,
+                                            quis
+                                            urna, a eu.</p>
+                                        <div class="btn-wrap">
+                                            <a href="#" class="btn btn-outline-accent btn-accent-arrow">Read
+                                                More<i class="icon icon-ns-arrow-right"></i></a>
+                                        </div>
+                                    </div><!--banner-content-->
+                                    <img src="{{ asset($feature->image) }}" alt="banner" class="banner-image">
+                                </div>
+                            @endforeach
+                        @endif
+                        <!--slider-item-->
+
+                    </div><!--slider-->
+
+                    <button class="next slick-arrow">
+                        <i class="icon icon-arrow-right"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
     <section id="featured-books" class="py-5 my-5">
         <div class="container">
             <div class="row">
@@ -16,24 +62,26 @@
                     <div class="product-list" data-aos="fade-up">
                         <div class="row">
 
-
                             @if ($features->isEmpty())
                                 <p>No features available.</p>
                             @else
                                 @foreach ($features as $feature)
                                     <div class="col-md-3">
-                                        <div class="product-item">
-                                            <figure class="product-style">
-                                                <img src="{{ asset($feature->image) }}" alt="Books" class="product-item">
-                                                <button type="button" class="add-to-cart"
-                                                    data-product-tile="add-to-cart">Borrow books</button>
-                                            </figure>
-                                            <figcaption>
-                                                <h3>{{ $feature->title }}</h3>
-                                                <span>{{ $feature->author->name }}</span>
-                                                <div class="item-price">{{ $feature->publisher->name }}</div>
-                                            </figcaption>
-                                        </div>
+                                        <a href="{{ route('bdetails', $feature->id) }}">
+                                            <div class="product-item">
+                                                <figure class="product-style">
+                                                    <img src="{{ asset($feature->image) }}" alt="Books"
+                                                        class="product-item">
+                                                    <button type="button" class="add-to-cart"
+                                                        data-product-tile="add-to-cart">Borrow books</button>
+                                                </figure>
+                                                <figcaption>
+                                                    <h3>{{ $feature->title }}</h3>
+                                                    <span>{{ $feature->author->name }}</span>
+                                                    <div class="item-price">{{ $feature->publisher->name }}</div>
+                                                </figcaption>
+                                            </div>
+                                        </a>
                                     </div>
                                 @endforeach
                             @endif
@@ -163,29 +211,44 @@
                         <h2 class="section-title">Popular Books</h2>
                     </div>
 
-                    <ul class="tabs">
+                    {{-- <ul class="tabs">
                         <li data-tab-target="#all-genre" class="active tab">All Genre</li>
                         @foreach ($categories as $category)
                             <li data-tab-target="#{{ $category->name }}" class="tab">{{ $category->name }}</li>
                         @endforeach
-                        {{-- <li data-tab-target="#business" class="tab">Business</li>
+                        <li data-tab-target="#business" class="tab">Business</li>
                         <li data-tab-target="#technology" class="tab">Technology</li>
                         <li data-tab-target="#romantic" class="tab">Romantic</li>
                         <li data-tab-target="#adventure" class="tab">Adventure</li>
-                        <li data-tab-target="#fictional" class="tab">Fictional</li> --}}
+                        <li data-tab-target="#fictional" class="tab">Fictional</li>
+                        
+                    </ul> --}}
+
+
+                    <ul class="tabs" id="categoryTabs">
+                        <li data-tab-target="#all-genre" class="active tab">All Genre</li>
+                        @foreach ($categories as $index => $category)
+                            <li data-tab-target="#{{ $category->name }}" class="tab" style="display: none;">
+                                {{ $category->name }}
+                            </li>
+                        @endforeach
                     </ul>
+                    <button id="prevPage" onclick="changePage(-1)" style="display: none;">Previous</button>
+                    <button id="nextPage" onclick="changePage(1)">Next</button>
+
 
                     <div class="tab-content">
+
                         <div id="all-genre" data-tab-content class="active">
                             <div class="row">
 
                                 <div class="col-md-3">
                                     <div class="product-item">
                                         <figure class="product-style">
-                                            <img src="{{ asset('users/images/tab-item1.jpg') }}
-                                            "
-                                                alt="Books" class="product-item">
-                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                            <img src="{{ asset('users/images/tab-item1.jpg') }}" alt="Books"
+                                                class="product-item">
+                                            <button type="button" class="add-to-cart"
+                                                data-product-tile="add-to-cart">Add
                                                 to
                                                 Cart</button>
                                         </figure>
@@ -203,7 +266,8 @@
                                             <img src="{{ asset('users/images/tab-item2.jpg') }}
                                            "
                                                 alt="Books" class="product-item">
-                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                            <button type="button" class="add-to-cart"
+                                                data-product-tile="add-to-cart">Add
                                                 to
                                                 Cart</button>
                                         </figure>
@@ -220,7 +284,8 @@
                                         <figure class="product-style">
                                             <img src="{{ asset('users/images/tab-item3.jpg') }}" alt="Books"
                                                 class="product-item">
-                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add
+                                            <button type="button" class="add-to-cart"
+                                                data-product-tile="add-to-cart">Add
                                                 to
                                                 Cart</button>
                                         </figure>
@@ -724,3 +789,5 @@
         </div>
     </section>
 @endsection
+
+<x-changepage />

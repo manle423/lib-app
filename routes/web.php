@@ -14,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 // Route for user
 Route::redirect('/', 'dashboard');
 
+// Dashboard for user
 Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 
+// Book details
+Route::get('/bdetails/{id}', [HomeController::class, 'show'])->middleware('user')->name('bdetails');
+
+// Change the information of account
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
