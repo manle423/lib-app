@@ -228,16 +228,20 @@
                     </ul> --}}
 
 
-                    <ul class="tabs" id="categoryTabs">
+                    <ul class="tabs d-flex justify-content-around" id="categoryTabs">
+                        <li><a id="prevPage" onclick="changePage(-1)" style="display: none; "
+                                class="btn btn-primary">Previous</a>
+                        </li>
                         <li data-tab-target="#all-genre" class="active tab">All Genre</li>
                         @foreach ($categories as $index => $category)
-                            <li data-tab-target="#{{ str_replace(' ', '-', $category->name) }}" class="tab" style="display: none;">
+                            <li data-tab-target="#{{ str_replace(' ', '-', $category->name) }}" class="tab"
+                                style="display: none;">
                                 {{ $category->name }}
                             </li>
                         @endforeach
+                        <li> <a id="nextPage" onclick="changePage(1)" class="btn btn-primary">Next</a>
+                        </li>
                     </ul>
-                    <button id="prevPage" onclick="changePage(-1)" style="display: none;">Previous</button>
-                    <button id="nextPage" onclick="changePage(1)">Next</button>
 
 
                     <div class="tab-content">
@@ -246,20 +250,17 @@
                             <div class="row">
                                 @if ($allbook->isEmpty())
                                     <div class="alert alert-primary" role="alert">
-                                        Updating...
-                                    @else
-                                        @foreach ($allbook as $b_item)
-                                            <div class="col-md-3">
+                                        Updating...</div>
+                                @else
+                                    @foreach ($allbook as $b_item)
+                                        <div class="col-md-3">
+                                            <a href="{{ route('bdetails', $b_item->id) }}">
                                                 <div class="product-item">
                                                     <figure class="product-style">
-                                                        <a href="{{ route('bdetails', $b_item->id) }}"><img
-                                                                src="{{ asset($b_item->image) }}
-                                                        "
-                                                                alt="Books" class="product-item"></a>
+                                                        <img src="{{ asset($b_item->image) }}" alt="Books"
+                                                            class="product-item">
                                                         <button type="button" class="add-to-cart"
-                                                            data-product-tile="add-to-cart">Add
-                                                            to
-                                                            Cart</button>
+                                                            data-product-tile="add-to-cart">Borrow Books</button>
                                                     </figure>
                                                     <figcaption>
                                                         <h3>{{ $b_item->title }}</h3>
@@ -267,8 +268,9 @@
                                                         <div class="item-price">{{ $b_item->publisher->name }}</div>
                                                     </figcaption>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            </a>
+                                        </div>
+                                    @endforeach
                                 @endif
                             </div>
                         </div>

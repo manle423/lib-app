@@ -18,7 +18,13 @@ Route::redirect('/', 'dashboard');
 Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 
 // Book details
-Route::get('/bdetails/{id}', [HomeController::class, 'show'])->middleware('user')->name('bdetails');
+Route::get('/bdetails/{id}', [HomeController::class, 'show'])->name('bdetails');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/borrow-book/{id}', [HomeController::class, 'borrow'])->name('borrows_book');
+    Route::post('/submit-borrow.{id}', [HomeController::class, 'submitBorrow'])->name('submit_borrow');
+});
+
 
 // Change the information of account
 Route::middleware('auth')->group(function () {
@@ -88,4 +94,3 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/destroy/{id}', [LoanController::class, 'destroy'])->name("admin.loans.destroy"); // Matches "/loans/destroy"
     });
 });
-

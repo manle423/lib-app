@@ -2,5 +2,4 @@
 
 @yield('content')
 
-
 @include('layouts.user.partials.footer')
