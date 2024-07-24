@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', 'dashboard');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
+Route::get('/bdetails/{id}', [HomeController::class, 'show'])->middleware('user')->name('bdetails');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
