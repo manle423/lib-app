@@ -15,6 +15,8 @@ Route::redirect('/', 'dashboard');
 
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 Route::get('/bdetails/{id}', [HomeController::class, 'show'])->middleware('user')->name('bdetails');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 
 
 Route::middleware('auth')->group(function () {

@@ -86,9 +86,11 @@
                                     <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
                                         <i class="icon icon-search"></i>
                                     </a>
-                                    <form role="search" method="get" class="search-box">
-                                        <input class="search-field text search-input" placeholder="Search"
-                                            type="search">
+                                    <form role="search" method="get" action="{{ route('search') }}"
+                                        class="search-box">
+                                        <input class="search-field text search-input" name="search"
+                                            placeholder="Search" type="search"
+                                            value="{{ isset($search) ? $search : '' }}">
                                     </form>
                                 </div>
                             </div>
@@ -121,7 +123,6 @@
                                     <li class="menu-item"><a href="#featured-books" class="nav-link">Featured</a>
                                     </li>
                                     <li class="menu-item"><a href="#popular-books" class="nav-link">Popular</a></li>
-                                    <li class="menu-item"><a href="#special-offer" class="nav-link">Offer</a></li>
 
 
                                 </ul>
