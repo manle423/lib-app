@@ -19,6 +19,8 @@ Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->n
 
 // Book details
 Route::get('/bdetails/{id}', [HomeController::class, 'show'])->middleware('user')->name('bdetails');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 
 // Change the information of account
 Route::middleware('auth')->group(function () {

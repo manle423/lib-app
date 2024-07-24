@@ -25,4 +25,27 @@ class HomeController extends Controller
         $book = Book::findOrFail($id);
         return view('users.bdetails', compact('book'));
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $query = Book::query();
+        $query->whereAny(['title'], 'LIKE', "%$search%");
+        $query->orWhereHas('author', function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%");
+        });
+        $query->orWhereHas('publisher', function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%");
+        });
+        // $book = Book::where(function ($query) use ($search) {
+        //     $query->where('title', 'like', "%$search%");
+        // })->orWhereHas('author', function ($query) use ($search) {
+        //     $query->where('title', 'like', "%$search%");
+        // })->orWhereHas('publisher', function ($query) use ($search) {
+        //     $query->where('title', 'like', "%$search%");
+        // })
+        //     ->get();
+        $book = $query->get();
+        return view('users.result-search', compact('book', 'search'));
+    }
 }

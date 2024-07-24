@@ -40,6 +40,44 @@
         </div>
     </div>
 </footer>
+<script>
+    $(document).ready(function() {
+        $('#search-input').on('keyup', function() {
+            let query = $(this).val();
+
+            if (query.length < 3) {
+                $('#search-results').html(''); // Clear results if query is too short
+                return;
+            }
+
+            $.ajax({
+                url: '{{ route('search') }}',
+                method: 'GET',
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    if (data.length === 0) {
+                        $('#search-results').html('<p>No results found</p>');
+                    } else {
+                        let results = data.map(book => `
+                            <div class="search-result-item">
+                                <h3>${book.title}</h3>
+                                <p><strong>Author:</strong> ${book.author ? book.author.name : 'Unknown Author'}</p>
+                                <p><strong>Publisher:</strong> ${book.publisher ? book.publisher.name : 'Unknown Publisher'}</p>
+                            </div>
+                        `).join('');
+                        $('#search-results').html(results);
+                    }
+                },
+                error: function(xhr) {
+                    console.error('Error:', xhr);
+                    $('#search-results').html('<p>An error occurred</p>');
+                }
+            });
+        });
+    });
+</script>
 
 <script src="{{ asset('users/js/jquery-1.11.0.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
