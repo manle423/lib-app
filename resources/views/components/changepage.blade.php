@@ -43,5 +43,7 @@
     }
 
     // Hiển thị trang đầu tiên khi tải trang
-    showPage(0);
+    document.addEventListener('DOMContentLoaded', function() {
+        showPage(0);
+    });
 </script>
