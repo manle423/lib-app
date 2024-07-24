@@ -11,9 +11,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublisherController;
 use Illuminate\Support\Facades\Route;
 
+// Route for user
 Route::redirect('/', 'dashboard');
 
-Route::get('/dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
+Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,12 +22,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Route for authenticated 
 require __DIR__ . '/auth.php';
 
-Route::get('admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
 
 // Route for admin
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.dashboard')->middleware(['auth', 'admin']);
 
     // Route for managing all about authors
     Route::prefix('authors')->group(function () {
@@ -80,4 +84,3 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-// Route for user
