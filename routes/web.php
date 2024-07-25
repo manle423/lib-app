@@ -95,5 +95,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/edit/{id}', [LoanController::class, 'edit'])->name("admin.loans.edit"); // Matches "/loans/edit"
         Route::post('/update/{id}', [LoanController::class, 'update'])->name("admin.loans.update"); // Matches "/loans/update"
         Route::get('/destroy/{id}', [LoanController::class, 'destroy'])->name("admin.loans.destroy"); // Matches "/loans/destroy"
+        Route::put('/{loan}/return', [LoanController::class, 'returnBook'])->name('admin.loans.return');
     });
 });

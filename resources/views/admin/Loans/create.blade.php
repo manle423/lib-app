@@ -49,7 +49,7 @@
                     <div class="form-group mb-3">
                         <label for="loan_date">Loan date*</label>
                         <input type="date" class="form-control" id="loan_date" name="loan_date"
-                            value="{{ old('loan_date') }}" required>
+                            value="{{ today()->toDateString() }}" required>
                         @error('loan_date')
                             <p class="error">{{ $message }}</p>
                         @enderror

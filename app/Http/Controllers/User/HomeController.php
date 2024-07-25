@@ -135,6 +135,12 @@ class HomeController extends Controller
             'borrower_phone' => $fields_for_borrower['borrower_phone'],
         ]);
 
+        // Find the book and update its quantity
+        $book = Book::findOrFail($id);
+        $book->update(['quantity' => $book->quantity - 1]);
+
+
+
         // Redirect back with a success message
         return back()->with('success', 'Borrowing book successful');
     }

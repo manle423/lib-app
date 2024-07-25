@@ -45,8 +45,17 @@
                                 @endif
                             </datalist>
                             <label for="author_name">Author:</label>
-                            <input id="author_name" class="form-control" type="text" list="author-list" name="author_name" placeholder="Select a author">
+                            <input id="author_name" class="form-control" type="text" list="author-list"
+                                name="author_name" placeholder="Select a author">
                         </div>
+
+                        <label for="short_description">Short description</label>
+                        <input type="text" class="form-control" id="short_description" name="short_description"
+                            placeholder="Enter short description">
+
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Enter description">
 
                         <label for="name">ISBN</label>
                         <input type="text" class="form-control" id="ISBN" name="ISBN"
@@ -72,7 +81,8 @@
                                 @endif
                             </datalist>
                             <label for="publisher_name">Publisher:</label>
-                            <input id="publisher_name" class="form-control" type="text" list="publisher-list" name="publisher_name" placeholder="Select a publisher">
+                            <input id="publisher_name" class="form-control" type="text" list="publisher-list"
+                                name="publisher_name" placeholder="Select a publisher">
                         </div>
 
                         <label for="name">Published year</label>
@@ -97,7 +107,8 @@
                                 @endif
                             </datalist>
                             <label for="ca">Publisher:</label>
-                            <input id="category_name" class="form-control" type="text" list="categories-list" name="category_name" placeholder="Select a Category">
+                            <input id="category_name" class="form-control" type="text" list="categories-list"
+                                name="category_name" placeholder="Select a Category">
                         </div>
 
 

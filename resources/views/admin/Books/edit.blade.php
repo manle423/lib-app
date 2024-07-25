@@ -46,6 +46,15 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <label for="short_description">Short description</label>
+                        <input type="text" class="form-control" id="short_description" name="short_description"
+                            placeholder="Enter short description" value="{{ old('short_description', $books->short_description) }}">
+
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Enter description" value="{{ old('description', $books->description) }}">
+
                         <label for="name">ISBN</label>
                         <input type="text" class="form-control" id="ISBN" name="ISBN"
                             placeholder="Enter category's name" value="{{ old('ISBN', $books->ISBN) }}" requried>
@@ -89,6 +98,10 @@
                                 @endforeach
                             </select>
                         </div>
+                        <label for="quantity">Quantity</label>
+                        <input type="text" class="form-control" id="quantity" name="quantity"
+                            placeholder="Enter published's name"
+                            value="{{ old('quantity', $books->quantity) }}" requried>
 
 
 

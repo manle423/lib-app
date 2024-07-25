@@ -36,15 +36,16 @@
 
                     {{-- Book --}}
                     <div class="form-group mb-3">
-                        <label for="book_id">Book*</label>
-                        <select id="book_id" name="book_id" class="form-control">
+                        <label for="book_id">Book</label>
+                        <span class="form-control">{{ $loans->book->title }}</span>
+                        {{-- <select id="book_id" name="book_id" class="form-control">
                             @foreach ($books as $item)
                                 <<option value="{{ $item->id }}"
                                     {{ $item->id == old('book_id', $loans->book_id) ? 'selected' : '' }}>
                                     {{ $item->title }}
                                 </option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         @error('book_id')
                             <p class="error">{{ $message }}</p>
                         @enderror

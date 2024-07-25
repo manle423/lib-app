@@ -65,6 +65,15 @@
                                         {{ __('Log Out') }}
                                     </x-dropdown-link>
                                 </form>
+                                <a href="{{ route('history') }}" class="cart for-buy"><i
+                                        class="icon icon-clipboard"></i>
+                                    <span>
+                                        @if ($totalBorrowers > 0)
+                                            {{ $totalBorrowers }}
+                                        @else
+                                            0
+                                        @endif
+                                </a>
                             @else
                                 <!-- Nếu người dùng chưa đăng nhập -->
                                 <a href="{{ route('login') }}" class="user-account for-buy me-3"><i
@@ -82,19 +91,13 @@
                                 </form> --}}
                             @endif
 
-                            <a href="{{ route('history') }}" class="cart for-buy"><i class="icon icon-clipboard"></i>
-                                <span>
-                                    @if ($totalBorrowers > 0)
-                                        {{ $totalBorrowers }}
-                                    @else
-                                        0
-                                    @endif
-                            </a>
+
 
                             <div class="action-menu">
                                 <div class="search-bar">
+                                    <!-- Nút tìm kiếm với biểu tượng icon-search -->
                                     <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
-                                        <i class="icon icon-search"></i>
+                                        <i class="icon icon-search"></i> <!-- Biểu tượng tìm kiếm -->
                                     </a>
                                     <form role="search" method="get" action="{{ route('search') }}"
                                         class="search-box">
@@ -104,6 +107,7 @@
                                     </form>
                                 </div>
                             </div>
+
                         </div><!--top-right-->
                     </div>
 
@@ -129,7 +133,6 @@
                             <div class="main-menu stellarnav">
                                 <ul class="menu-list">
                                     <li class="menu-item active"><a href="#billboard">Home</a></li>
-
                                     <li class="menu-item"><a href="#featured-books" class="nav-link">Featured</a>
                                     </li>
                                     <li class="menu-item"><a href="#popular-books" class="nav-link">Popular</a></li>

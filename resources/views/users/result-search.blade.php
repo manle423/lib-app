@@ -12,15 +12,13 @@
                 @foreach ($book as $item)
                     <div class="col-md-3">
                         <div class="product-item">
-
-                            <figure class="product-style">
-                                <a href="{{ route('bdetails', $item->id) }}"><img src="{{ $item->image }}"
-                                        alt="{{ $item->title }}" class="product-item"></a>
-                                <a href="{{ route('bdetails', $item->id) }}"><button type="button" class="add-to-cart"
-                                        data-product-tile="add-to-cart">Borrow
-                                        books</button></a>
-
-                            </figure>
+                            <a href="{{ route('bdetails', $item->id) }}"><img src="{{ $item->image }}"
+                                    alt="{{ $item->title }}" class="product-item">
+                                <figure class="product-style">
+                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Borrow
+                                        books</button>
+                                </figure>
+                            </a>
                             <figcaption>
                                 <h3>{{ $item->title }}</h3>
                                 <span>{{ $item->author->name }}</span>
