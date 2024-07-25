@@ -15,12 +15,41 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $books = Book::latest()->paginate(6);
+        // Query parameters
+        $sort = $request->query('sort', 'id');
+        $direction = $request->query('direction', 'asc');
+
+        // Special case for sorting
+        if ($sort === 'author') {
+            $books = Book::with(['author', 'publisher', 'category'])
+                ->join('authors', 'books.author_id', '=', 'authors.id')
+                ->select('books.*')
+                ->orderBy('authors.name', $direction)
+                ->paginate(6);
+        } elseif ($sort === 'publisher') {
+            $books = Book::with(['author', 'publisher', 'category'])
+                ->join('publishers', 'books.publisher_id', '=', 'publishers.id')
+                ->select('books.*')
+                ->orderBy('publishers.name', $direction)
+                ->paginate(6);
+        } elseif ($sort === 'category') {
+            $books = Book::with(['author', 'publisher', 'category'])
+                ->join('categories', 'books.category_id', '=', 'categories.id')
+                ->select('books.*')
+                ->orderBy('categories.name', $direction)
+                ->paginate(6);
+        } else {
+            $books = Book::with(['author', 'publisher', 'category'])
+                ->orderBy($sort, $direction)
+                ->paginate(6);
+        }
+
         return view('admin.books.index', compact('books'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,6 +72,8 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|max:255|string',
             'author_name' => 'required|string|max:255',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
             'ISBN' => 'required|max:255|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             'publisher_name' => 'required|string|max:255',
@@ -65,7 +96,7 @@ class BookController extends Controller
             return redirect()->back()->withErrors(['publisher_name' => 'Publisher not found. Please select a valid publisher.'])->withInput();
         }
         $publisher_id = $publisher->id;
-        
+
         // Convert category_name to category_id
         $category = Category::where('name', $request->input('category_name'))->first();
         if (!$category) {
@@ -86,6 +117,8 @@ class BookController extends Controller
         Book::create([
             'title' => $request->title,
             'author_id' => $author_id,
+            'short_description' => $request->short_description,
+            'description' => $request->description,
             'ISBN' => $request->ISBN,
             'image' => $filename ? $path . $filename : null,
             'publisher_id' => $publisher_id,
@@ -130,6 +163,8 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|max:255|string|unique:books,title,' . $id,
             'author_id' => 'required|exists:authors,id',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
             'ISBN' => 'required|max:255|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
             'publisher_id' => 'required|exists:publishers,id',
@@ -143,6 +178,8 @@ class BookController extends Controller
             $book->update([
                 'title' => $request->title,
                 'author_id' => $request->author_id,
+                'short_description' => $request->short_description,
+                'description' => $request->description,
                 'ISBN' => $request->ISBN,
                 'image' => $book->image,
                 'publisher_id' => $request->publisher_id,
@@ -158,6 +195,8 @@ class BookController extends Controller
             $book->update([
                 'title' => $request->title,
                 'author_id' => $request->author_id,
+                'short_description' => $request->short_description,
+                'description' => $request->description,
                 'ISBN' => $request->ISBN,
                 'image' => $path . $filename,
                 'publisher_id' => $request->publisher_id,

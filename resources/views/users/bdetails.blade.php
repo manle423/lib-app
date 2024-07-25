@@ -9,8 +9,8 @@
                     <div class="products-content">
                         <div class="author-name">{{ $book->author->name }}</div>
                         <h3 class="item-title">{{ $book->title }}</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
-                            libero ipsum enim pharetra hac.</p>
+                        {{-- {{ dd($book->description) }} --}}
+                        <p>{{ $book->description }}</p>
                         <div class="item-price">{{ $book->published_year }}</div>
                         <div class="btn-wrap">
                             <a href="{{ route('borrows_book', $book->id) }}" class="btn-accent-arrow">Borrow now ! <i

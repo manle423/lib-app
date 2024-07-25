@@ -20,11 +20,8 @@
                                 <div class="slider-item">
                                     <div class="banner-content">
                                         <h2 class="banner-title">{{ $feature->title }}</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
-                                            libero
-                                            ipsum enim pharetra hac. Urna commodo, lacus ut magna velit eleifend. Amet,
-                                            quis
-                                            urna, a eu.</p>
+                                        {{-- <p>{{ dd($feature) }}</p> --}}
+                                        <p>{{ $feature->short_description }}</p>
                                         <div class="btn-wrap">
                                             <a href="{{ route('bdetails', $feature->id) }}"
                                                 class="btn btn-outline-accent btn-accent-arrow">Read
@@ -134,8 +131,7 @@
                                 <div class="products-content">
                                     <div class="author-name">{{ $book->author->name }}</div>
                                     <h3 class="item-title">{{ $book->title }}</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eu feugiat amet,
-                                        libero ipsum enim pharetra hac.</p>
+                                    <p>{{ $book->short_description }}</p>
                                     <div class="item-price">{{ $book->published_year }}</div>
                                     <div class="btn-wrap">
                                         <a href="#" class="btn-accent-arrow">Borrow now ! <i

@@ -11,21 +11,19 @@
         @endif
 
         <div class="row">
-
             <div class="container mt-3">
-
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>ISBN</th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'id', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'title', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Title</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'author', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Author</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'ISBN', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">ISBN</a></th>
                             <th>Image</th>
-                            <th>Publisher</th>
-                            <th>Year</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'publisher', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Publisher</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'published_year', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Year</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'category', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Category</a></th>
+                            <th><a href="{{ route('admin.books.index', ['sort' => 'quantity', 'direction' => request('direction') == 'asc' ? 'desc' : 'asc']) }}">Quantity</a></th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,18 +41,14 @@
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->author->name }}</td>
                                 <td>{{ $item->ISBN }}</td>
-                                {{-- <td> <img src="{{ asset($item->image) }}" alt="" height="70px" width="70px" />
-                                </td> --}}
-                                <td> <img src="{{ $image }}" alt="" height="70px" width="70px" /> </td>
+                                <td><img src="{{ $image }}" alt="" height="70px" width="70px" /></td>
                                 <td>{{ $item->publisher->name }}</td>
                                 <td>{{ $item->published_year }}</td>
                                 <td>{{ $item->category->name }}</td>
                                 <td>{{ $item->quantity }}</td>
                                 <td>
-                                    <a href="{{ route('admin.books.edit', $item->id) }}"
-                                        class="btn btn-primary">Edit</a>
-                                    <a href="{{ route('admin.books.delete', $item->id) }}"
-                                        class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('admin.books.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ route('admin.books.delete', $item->id) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -63,9 +57,9 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                {{ $books->links('pagination::bootstrap-5') }}
+                {{ $books->appends(request()->query())->links('pagination::bootstrap-5') }}
             </div>
         </div>
         <x-sweetalert />
-
+    </div>
 </x-app-layout>
