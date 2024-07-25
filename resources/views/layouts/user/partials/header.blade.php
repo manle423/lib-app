@@ -117,7 +117,7 @@
 
                     <div class="col-md-2">
                         <div class="main-logo">
-                            <a href="index.html"><img src="{{ asset('users/images/main-logo.png') }}"
+                            <a href="{{ route('dashboard') }}"><img src="{{ asset('users/images/main-logo.png') }}"
                                     alt="logo"></a>
                         </div>
 
@@ -128,7 +128,7 @@
                         <nav id="navbar">
                             <div class="main-menu stellarnav">
                                 <ul class="menu-list">
-                                    <li class="menu-item active"><a href="{{ route('dashboard') }}">Home</a></li>
+                                    <li class="menu-item active"><a href="#billboard">Home</a></li>
 
                                     <li class="menu-item"><a href="#featured-books" class="nav-link">Featured</a>
                                     </li>

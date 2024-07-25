@@ -30,8 +30,8 @@ class BookController extends Controller
         //
         $authors = Author::all();
         $categories = Category::all();
-        $publisher = Publisher::all();
-        return view('admin.books.create', compact('authors', 'categories', 'publisher'));
+        $publishers = Publisher::all();
+        return view('admin.books.create', compact('authors', 'categories', 'publishers'));
     }
 
     /**
@@ -39,15 +39,40 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'title' => 'required|max:255|string',
-            'author_id' => 'required|exists:authors,id',
+            'author_name' => 'required|string|max:255',
             'ISBN' => 'required|max:255|string',
             'image' => 'nullable|mimes:png,jpg,jpeg|max:2048',
-            'publisher_id' => 'required|exists:publishers,id',
+            'publisher_name' => 'required|string|max:255',
             'published_year' => 'nullable|integer|min:1900|max:' . date('Y'),
-            'category_id' => 'required|exists:categories,id'
+            'category_name' => 'required|string|max:255'
         ]);
+
+        // Convert author_name to author_id
+        $author = Author::where('name', $request->input('author_name'))->first();
+
+        if (!$author) {
+            return redirect()->back()->withErrors(['author_name' => 'Author not found. Please select a valid author.'])->withInput();
+        }
+
+        $author_id = $author->id;
+
+        // Convert publisher_name to publisher_id
+        $publisher = Publisher::where('name', $request->input('publisher_name'))->first();
+        if (!$publisher) {
+            return redirect()->back()->withErrors(['publisher_name' => 'Publisher not found. Please select a valid publisher.'])->withInput();
+        }
+        $publisher_id = $publisher->id;
+        
+        // Convert category_name to category_id
+        $category = Category::where('name', $request->input('category_name'))->first();
+        if (!$category) {
+            return redirect()->back()->withErrors(['category_name' => 'Publisher not found. Please select a valid category.'])->withInput();
+        }
+        $category_id = $category->id;
+
         // Handle the file upload
         $filename = null;
         $path = 'uploads/books/';
@@ -57,31 +82,21 @@ class BookController extends Controller
             $file->move(public_path($path), $filename);
         }
 
-        // Test dd
-        // dd([
-        //     'title' => $request->title,
-        //     'author_id' => $request->author_id,
-        //     'ISBN' => $request->ISBN,
-        //     'image' => $filename ? $path . $filename : null,
-        //     'publisher_id' => $request->publisher_id,
-        //     'published_year' => $request->published_year,
-        //     'category_id' => $request->category_id,
-        // ]);
-
         // Create the book
         Book::create([
             'title' => $request->title,
-            'author_id' => $request->author_id,
+            'author_id' => $author_id,
             'ISBN' => $request->ISBN,
-            'image' => $filename ? $path . $filename : null, // Store the path to the image or null if no image was uploaded
-            'publisher_id' => $request->publisher_id,
+            'image' => $filename ? $path . $filename : null,
+            'publisher_id' => $publisher_id,
             'published_year' => $request->published_year,
-            'category_id' => $request->category_id,
+            'category_id' => $category_id,
             'quantity' => 50
         ]);
 
         return redirect()->route('admin.books.index')->with('success', 'Book added successfully.');
     }
+
 
     /**
      * Display the specified resource.
