@@ -19,7 +19,7 @@ class Loan extends Model
         'return_date'
     ];
 
-    public function borrower() : HasOne
+    public function borrower(): HasOne
     {
         return $this->hasOne(Borrower::class);
     }

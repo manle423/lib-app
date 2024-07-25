@@ -82,8 +82,14 @@
                                 </form> --}}
                             @endif
 
-                            <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0
-                                    $)</span></a>
+                            <a href="{{ route('history') }}" class="cart for-buy"><i class="icon icon-clipboard"></i>
+                                <span>
+                                    @if ($totalBorrowers > 0)
+                                        {{ $totalBorrowers }}
+                                    @else
+                                        0
+                                    @endif
+                            </a>
 
                             <div class="action-menu">
                                 <div class="search-bar">

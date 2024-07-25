@@ -21,10 +21,11 @@ Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->n
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 // Book details
 Route::get('/bdetails/{id}', [HomeController::class, 'show'])->name('bdetails');
+Route::get('/history', [HomeController::class, 'history'])->name('history');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/borrow-book/{id}', [HomeController::class, 'borrow'])->name('borrows_book');
-    Route::post('/submit-borrow.{id}', [HomeController::class, 'submitBorrow'])->name('submit_borrow');
+    Route::post('/submit-borrow/{id}', [HomeController::class, 'submitBorrow'])->name('submit_borrow');
 });
 
 // Change the information of account
@@ -35,7 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route for authenticated 
+// Route for authenticated
 require __DIR__ . '/auth.php';
 
 

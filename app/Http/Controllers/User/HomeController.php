@@ -9,28 +9,40 @@ use App\Models\Category;
 use App\Models\Loan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     //
     public function index()
     {
+
+        //count history
+        $user = Auth::user();
+        $loans = Loan::where('user_id', $user->id)->get();
+        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
+
         $features = Book::latest()->paginate(8);
         $book = Book::latest()->first();
-
         $categories = Category::all();
         $allbook = Book::all();
 
-        return view('users.dashboard', compact('features', 'book', 'allbook', 'categories'));
+        return view('users.dashboard', compact('features', 'book', 'allbook', 'categories', 'totalBorrowers'));
     }
     public function show(string $id)
     {
+        $user = Auth::user();
+        $loans = Loan::where('user_id', $user->id)->get();
+        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
         $book = Book::findOrFail($id);
-        return view('users.bdetails', compact('book'));
+        return view('users.bdetails', compact('book', 'totalBorrowers'));
     }
 
     public function search(Request $request)
     {
+        $userid = Auth::user();
+        $loans = Loan::where('user_id', $userid->id)->get();
+        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
         $search = $request->search;
         $query = Book::query();
         $query->whereAny(['title'], 'LIKE', "%$search%");
@@ -49,14 +61,27 @@ class HomeController extends Controller
         // })
         //     ->get();
         $book = $query->get();
-        return view('users.result-search', compact('book', 'search'));
+
+        return view('users.result-search', compact('book', 'search', 'totalBorrowers'));
     }
     public function borrow(string $id)
     {
+        $userid = Auth::user();
+        $loans = Loan::where('user_id', $userid->id)->get();
+        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
+        //
         $book = Book::findOrFail($id);
         $user = Auth()->user();
         // dd($user);
-        return view('users.borrow-book', compact('book', 'user'));
+        return view('users.borrow-book', compact('book', 'user', 'totalBorrowers'));
+    }
+    public function history()
+    {
+        $user = Auth::user();
+        $loans = Loan::where('user_id', $user->id)->get();
+        $borrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->with('loan.book')->paginate(6);
+        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
+        return view('users.history', compact('user', 'loans', 'borrowers', 'totalBorrowers'));
     }
 
     public function submitBorrow(Request $request, string $id)
