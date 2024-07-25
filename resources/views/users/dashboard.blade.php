@@ -134,8 +134,8 @@
                                     <p>{{ $book->short_description }}</p>
                                     <div class="item-price">{{ $book->published_year }}</div>
                                     <div class="btn-wrap">
-                                        <a href="#" class="btn-accent-arrow">Borrow now ! <i
-                                                class="icon icon-ns-arrow-right"></i></a>
+                                        <a href="{{ route('bdetails', $book->id) }}" class="btn-accent-arrow">Borrow now !
+                                            <i class="icon icon-ns-arrow-right"></i></a>
                                     </div>
                                 </div>
 
