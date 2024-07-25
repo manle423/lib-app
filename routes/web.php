@@ -18,14 +18,15 @@ Route::redirect('/', 'dashboard');
 Route::get('dashboard', [HomeController::class, 'index'])->middleware('user')->name('dashboard');
 
 // Search
-Route::get('/search', [HomeController::class, 'search'])->name('search');
 // Book details
 Route::get('/bdetails/{id}', [HomeController::class, 'show'])->name('bdetails');
-Route::get('/history', [HomeController::class, 'history'])->name('history');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/borrow-book/{id}', [HomeController::class, 'borrow'])->name('borrows_book');
     Route::post('/submit-borrow/{id}', [HomeController::class, 'submitBorrow'])->name('submit_borrow');
+    Route::get('/history', [HomeController::class, 'history'])->name('history');
 });
 
 // Change the information of account

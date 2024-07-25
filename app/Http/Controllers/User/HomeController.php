@@ -16,11 +16,15 @@ class HomeController extends Controller
     //
     public function index()
     {
-
+        $totalBorrowers = 0;
+        $loans = collect();
         //count history
         $user = Auth::user();
-        $loans = Loan::where('user_id', $user->id)->get();
-        $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
+        if ($user) {
+            $loans = Loan::where('user_id', $user->id)->get();
+            $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
+        }
+
 
         $features = Book::latest()->paginate(8);
         $book = Book::latest()->first();
@@ -31,8 +35,12 @@ class HomeController extends Controller
     }
     public function show(string $id)
     {
+        $loans = collect();
         $user = Auth::user();
-        $loans = Loan::where('user_id', $user->id)->get();
+        if ($user) {
+            $loans = Loan::where('user_id', $user->id)->get();
+        }
+
         $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
         $book = Book::findOrFail($id);
         return view('users.bdetails', compact('book', 'totalBorrowers'));
@@ -40,8 +48,11 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
+        $loans = collect();
         $userid = Auth::user();
-        $loans = Loan::where('user_id', $userid->id)->get();
+        if ($userid) {
+            $loans = Loan::where('user_id', $userid->id)->get();
+        }
         $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
         $search = $request->search;
         $query = Book::query();
@@ -77,8 +88,11 @@ class HomeController extends Controller
     }
     public function history()
     {
+        $loans = collect();
         $user = Auth::user();
-        $loans = Loan::where('user_id', $user->id)->get();
+        if ($user) {
+            $loans = Loan::where('user_id', $user->id)->get();
+        }
         $borrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->with('loan.book')->paginate(6);
         $totalBorrowers = Borrower::whereIn('loan_id', $loans->pluck('id'))->count();
         return view('users.history', compact('user', 'loans', 'borrowers', 'totalBorrowers'));
